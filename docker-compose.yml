@@ -1,0 +1,97 @@
+version: "3.8"
+
+services:
+  # Database
+  cassandra:
+    image: cassandra:4.1
+    container_name: prms-cassandra
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    environment:
+      - CASSANDRA_CLUSTER_NAME=PrMSCluster
+      - CASSANDRA_DC=dc1
+      - CASSANDRA_RACK=rack1
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - prms-network
+
+  # Database Admin UI
+  cassandra-web:
+    image: ipushc/cassandra-web:latest
+    container_name: prms-cassandra-web
+    ports:
+      - "3002:8083"
+    environment:
+      - CASSANDRA_HOST=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_USER=cassandra
+      - CASSANDRA_PASSWORD=cassandra
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - prms-network
+
+  # Backend API Server
+  server:
+    build:
+      context: ./apps/server
+      dockerfile: Dockerfile
+    container_name: prms-server
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - CASSANDRA_HOST=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_KEYSPACE=prms
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    volumes:
+      - ./apps/server:/app
+      - /app/node_modules
+    restart: unless-stopped
+    networks:
+      - prms-network
+
+  # Web Frontend
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: prms-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    depends_on:
+      - server
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+      - /app/.next
+    restart: unless-stopped
+    networks:
+      - prms-network
+
+networks:
+  prms-network:
+    driver: bridge
+
+volumes:
+  cassandra-data:
+    driver: local

@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ============================================
+   PrMS Design System - Wellness Green Theme
+   Based on mobile designs adapted for web
+   ============================================ */
+
+@theme inline {
+  /* Primary Green Palette (from designs) */
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-300: #86efac;
+  --color-primary-400: #4ade80;
+  --color-primary-500: #4a7c59;
+  --color-primary-600: #3d6b4a;
+  --color-primary-700: #2d5a3a;
+  --color-primary-800: #1e4d2b;
+  --color-primary-900: #14532d;
+
+  /* Sage / Muted Greens (card backgrounds, accents) */
+  --color-sage-50: #f6f9f4;
+  --color-sage-100: #eef3eb;
+  --color-sage-200: #dde8d6;
+  --color-sage-300: #c4d6b8;
+  --color-sage-400: #8faa7d;
+  --color-sage-500: #6b8f5b;
+
+  /* Teal Accents (progress bars, links) */
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+
+  /* Neutrals */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+
+  /* Semantic Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Priority Colors (from task design) */
+  --color-priority-high: #ef4444;
+  --color-priority-medium: #f59e0b;
+  --color-priority-low: #22c55e;
+  --color-priority-urgent: #dc2626;
+
+  /* Category Colors (from calendar design) */
+  --color-cat-wellness: #4a7c59;
+  --color-cat-social: #f97316;
+  --color-cat-selfcare: #ec4899;
+  --color-cat-work: #3b82f6;
+  --color-cat-health: #14b8a6;
+
+  /* Background */
+  --color-background: #fafdf7;
+  --color-foreground: #1a2e1a;
+  --color-card: #ffffff;
+  --color-card-hover: #f6f9f4;
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+
+  /* Spacing */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+}
+
+/* Base Styles */
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-400);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
