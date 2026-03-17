@@ -362,24 +362,29 @@ export default function TimeClockPage() {
                 </p>
               </div>
             ) : entries.length === 0 ? (
-              <div className="py-16 text-center">
-                <svg
-                  className="mx-auto mb-3 text-neutral-300"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <p className="text-sm text-neutral-500">
-                  No time entries yet. Clock in to start tracking your hours.
-                </p>
+              <div className="flex flex-col items-center gap-4 py-10 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">⏱️</div>
+                <div>
+                  <p className="text-base font-semibold text-neutral-700">No time entries yet</p>
+                  <p className="mt-1 text-sm text-neutral-500">
+                    Clock in to start tracking work hours. See total hours, overtime, and attendance history — all in one place.
+                  </p>
+                </div>
+                <div className="w-full max-w-sm space-y-2">
+                  {[
+                    { date: "Mon Mar 17", clockIn: "9:00 AM", clockOut: "5:30 PM", hours: "8.5 hrs" },
+                    { date: "Tue Mar 16", clockIn: "8:45 AM", clockOut: "5:15 PM", hours: "8.5 hrs" },
+                    { date: "Wed Mar 15", clockIn: "9:10 AM", clockOut: "6:00 PM", hours: "8.8 hrs" },
+                  ].map((e, i) => (
+                    <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-neutral-800">{e.date}</p>
+                        <p className="text-[10px] text-neutral-400">{e.clockIn} → {e.clockOut}</p>
+                      </div>
+                      <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-bold text-primary-700">{e.hours}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -495,27 +500,29 @@ export default function TimeClockPage() {
                 </p>
               </div>
             ) : leaveRequests.length === 0 ? (
-              <div className="py-16 text-center">
-                <svg
-                  className="mx-auto mb-3 text-neutral-300"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                <p className="text-sm text-neutral-500">
-                  No leave requests. Click &quot;Request Leave&quot; to submit
-                  one.
-                </p>
+              <div className="flex flex-col items-center gap-4 py-10 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🏖️</div>
+                <div>
+                  <p className="text-base font-semibold text-neutral-700">No leave requests yet</p>
+                  <p className="mt-1 text-sm text-neutral-500">
+                    Submit vacation, sick, or personal leave requests. Track approval status and balances in one place.
+                  </p>
+                </div>
+                <div className="w-full max-w-sm space-y-2">
+                  {[
+                    { type: "Vacation Leave", dates: "Apr 7 – Apr 11", days: "5 days", status: "Approved" },
+                    { type: "Sick Leave", dates: "Mar 3", days: "1 day", status: "Approved" },
+                    { type: "Personal Leave", dates: "May 2", days: "1 day", status: "Pending" },
+                  ].map((lr, i) => (
+                    <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-neutral-800">{lr.type}</p>
+                        <p className="text-[10px] text-neutral-400">{lr.dates} · {lr.days}</p>
+                      </div>
+                      <span className={`text-[10px] font-semibold ${lr.status === "Approved" ? "text-primary-600" : "text-amber-500"}`}>{lr.status}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="flex flex-col gap-3">

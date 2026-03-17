@@ -632,34 +632,42 @@ export default function InvoicesPage() {
             </button>
           </Card>
         ) : filteredInvoices.length === 0 ? (
-          <Card variant="outlined" className="py-16 text-center">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-sage-100 text-neutral-400">
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-              </svg>
+          <Card variant="elevated" className="overflow-hidden py-6 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🧾</div>
+              <div>
+                <p className="text-base font-semibold text-neutral-700">
+                  {search || statusFilter !== "all"
+                    ? "No matching invoices"
+                    : "Start invoicing clients"}
+                </p>
+                <p className="mt-1 text-sm text-neutral-500">
+                  {search || statusFilter !== "all"
+                    ? "Try adjusting your search or filters."
+                    : "Create professional invoices, track payment status, and get paid faster."}
+                </p>
+              </div>
+              {!(search || statusFilter !== "all") && (
+                <div className="w-full max-w-sm space-y-2 px-4">
+                  {[
+                    { ref: "INV-0042", client: "Acme Corp", amount: "$4,800", status: "Paid", due: "Mar 1" },
+                    { ref: "INV-0043", client: "TechStart Inc", amount: "$12,200", status: "Pending", due: "Mar 15" },
+                    { ref: "INV-0044", client: "BlueSky Ltd", amount: "$3,500", status: "Overdue", due: "Feb 28" },
+                  ].map((inv, i) => (
+                    <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-neutral-800">{inv.ref} · {inv.client}</p>
+                        <p className="text-[10px] text-neutral-400">Due {inv.due}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs font-bold text-neutral-700">{inv.amount}</p>
+                        <p className={`text-[10px] font-semibold ${inv.status === "Paid" ? "text-primary-600" : inv.status === "Overdue" ? "text-red-500" : "text-amber-500"}`}>{inv.status}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="text-base font-semibold text-neutral-700">
-              {search || statusFilter !== "all"
-                ? "No matching invoices"
-                : "No invoices yet"}
-            </p>
-            <p className="mt-1 text-sm text-neutral-500">
-              {search || statusFilter !== "all"
-                ? "Try adjusting your search or filters."
-                : "Create your first invoice to get started."}
-            </p>
           </Card>
         ) : (
           <div className="flex flex-col gap-3">

@@ -342,18 +342,37 @@ export default function DocumentsPage() {
           </div>
         ) : docs.length === 0 ? (
           /* ---- Empty state ------------------------------------------ */
-          <div className="flex flex-col items-center gap-3 py-20 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sage-100 text-neutral-400">
-              <FolderIcon size={28} />
+          <div className="flex flex-col items-center gap-4 py-16 text-center">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+              📁
             </div>
-            <h3 className="text-lg font-semibold text-neutral-700">
-              {currentFolder ? "This folder is empty" : "No documents yet"}
-            </h3>
-            <p className="max-w-sm text-sm text-neutral-500">
-              {currentFolder
-                ? "Add files or folders to organize your content."
-                : "Create your first document or folder to get started."}
-            </p>
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-700">
+                {currentFolder ? "This folder is empty" : "Your document hub"}
+              </h3>
+              <p className="mt-1 max-w-sm text-sm text-neutral-500">
+                {currentFolder
+                  ? "Add files or folders to organize your content."
+                  : "Organize files and folders in one place. Upload contracts, reports, and internal docs — all searchable and shareable."}
+              </p>
+            </div>
+            {!currentFolder && (
+              <div className="w-full max-w-sm space-y-2">
+                {[
+                  { icon: "📄", name: "Q3 Financial Report.pdf", size: "2.4 MB", date: "Today" },
+                  { icon: "📝", name: "Product Roadmap.docx", size: "540 KB", date: "Yesterday" },
+                  { icon: "📊", name: "Sales Deck.pptx", size: "8.1 MB", date: "3 days ago" },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                    <span className="text-2xl">{f.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="truncate text-xs font-semibold text-neutral-800">{f.name}</p>
+                      <p className="text-[10px] text-neutral-400">{f.size} · {f.date}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="mt-2 flex gap-3">
               <Button variant="secondary" size="sm" onClick={() => openCreateModal("folder")}>
                 <FolderIcon size={16} />

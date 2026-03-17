@@ -450,7 +450,47 @@ export default function TimerPage() {
                 </svg>
               </button>
             )}
-          </div>
+           </div>
+        )}
+
+        {/* Sessions teaser (shown when no sessions yet and timer is idle) */}
+        {sessions.length === 0 && status === "idle" && (
+          <Card variant="elevated" className="overflow-hidden">
+            <div className="flex flex-col items-center gap-4 py-4 text-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                ⏱️
+              </div>
+              <div>
+                <p className="text-base font-semibold text-neutral-800">
+                  Deep work, tracked
+                </p>
+                <p className="mt-1 text-sm text-neutral-500">
+                  Start a focus session above. Your completed sessions will appear here so you can see how you spend your time.
+                </p>
+              </div>
+              {/* Mock session rows */}
+              <div className="w-full space-y-2">
+                {[
+                  { emoji: "💻", label: "Deep Work", duration: "25 min", time: "9:00 AM" },
+                  { emoji: "📖", label: "Reading", duration: "50 min", time: "11:00 AM" },
+                  { emoji: "🎯", label: "Planning", duration: "15 min", time: "2:00 PM" },
+                ].map((s, i) => (
+                  <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-base shadow-sm">
+                      {s.emoji}
+                    </span>
+                    <div className="flex-1">
+                      <p className="text-xs font-semibold text-neutral-800">{s.label}</p>
+                      <p className="text-[10px] text-neutral-400">{s.time}</p>
+                    </div>
+                    <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-semibold text-primary-700">
+                      {s.duration}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
         )}
 
         {/* Recent Sessions */}

@@ -334,7 +334,11 @@ export default function AnalyticsPage() {
                           </div>
                         ) : (
                           <Card>
-                            <p className="text-center text-sm text-neutral-500 py-8">No project analytics data available.</p>
+                            <div className="flex flex-col items-center gap-3 py-10 text-center">
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📊</div>
+                              <p className="text-sm font-semibold text-neutral-700">No project analytics yet</p>
+                              <p className="text-xs text-neutral-400">Create projects and log work to see delivery metrics, on-time rates, and team velocity.</p>
+                            </div>
                           </Card>
                         )}
                       </div>
@@ -371,7 +375,11 @@ export default function AnalyticsPage() {
                           </div>
                         ) : (
                           <Card>
-                            <p className="text-center text-sm text-neutral-500 py-8">No sales analytics data available.</p>
+                            <div className="flex flex-col items-center gap-3 py-10 text-center">
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">💰</div>
+                              <p className="text-sm font-semibold text-neutral-700">No sales analytics yet</p>
+                              <p className="text-xs text-neutral-400">Add deals and close orders to see revenue trends, win rates, and pipeline health.</p>
+                            </div>
                           </Card>
                         )}
                       </div>
@@ -408,7 +416,11 @@ export default function AnalyticsPage() {
                           </div>
                         ) : (
                           <Card>
-                            <p className="text-center text-sm text-neutral-500 py-8">No finance analytics data available.</p>
+                            <div className="flex flex-col items-center gap-3 py-10 text-center">
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📈</div>
+                              <p className="text-sm font-semibold text-neutral-700">No finance analytics yet</p>
+                              <p className="text-xs text-neutral-400">Record accounts and journal entries to see P&amp;L summaries, cash flow, and expense breakdowns.</p>
+                            </div>
                           </Card>
                         )}
                       </div>
@@ -441,7 +453,11 @@ export default function AnalyticsPage() {
                           </div>
                         ) : (
                           <Card>
-                            <p className="text-center text-sm text-neutral-500 py-8">No team analytics data available.</p>
+                            <div className="flex flex-col items-center gap-3 py-10 text-center">
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">👥</div>
+                              <p className="text-sm font-semibold text-neutral-700">No team analytics yet</p>
+                              <p className="text-xs text-neutral-400">Clock in team hours and assign tasks to track productivity, utilization, and performance trends.</p>
+                            </div>
                           </Card>
                         )}
                       </div>

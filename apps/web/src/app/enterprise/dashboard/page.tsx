@@ -392,8 +392,12 @@ export default function EnterpriseDashboardPage() {
                 ))}
               </div>
             ) : recentProjects.length === 0 ? (
-              <div className="px-5 py-12 text-center">
-                <p className="text-sm text-neutral-400">No projects yet.</p>
+              <div className="px-5 py-6 text-center">
+                <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
+                  🗂️
+                </div>
+                <p className="text-sm font-semibold text-neutral-700">No projects yet</p>
+                <p className="mt-1 text-xs text-neutral-400">Kick off your first project to start tracking progress and deliverables.</p>
                 <Button
                   variant="primary"
                   size="sm"
@@ -460,8 +464,12 @@ export default function EnterpriseDashboardPage() {
                 ))}
               </div>
             ) : recentOrders.length === 0 ? (
-              <div className="px-5 py-12 text-center">
-                <p className="text-sm text-neutral-400">No orders yet.</p>
+              <div className="px-5 py-6 text-center">
+                <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
+                  🛒
+                </div>
+                <p className="text-sm font-semibold text-neutral-700">No orders yet</p>
+                <p className="mt-1 text-xs text-neutral-400">Process your first order to see fulfillment status and revenue flow here.</p>
                 <Button
                   variant="primary"
                   size="sm"

@@ -340,26 +340,31 @@ export default function FinancePage() {
                 </p>
               </div>
             ) : accounts.length === 0 ? (
-              <div className="py-16 text-center">
-                <svg
-                  className="mx-auto mb-3 text-neutral-300"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="3" width="20" height="18" rx="2" />
-                  <line x1="2" y1="9" x2="22" y2="9" />
-                  <line x1="9" y1="3" x2="9" y2="21" />
-                </svg>
-                <p className="text-sm text-neutral-500">
-                  No accounts yet. Click &quot;Add Account&quot; to create your
-                  first chart of account.
-                </p>
+              <div className="flex flex-col items-center gap-4 py-12 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🏦</div>
+                <div>
+                  <p className="text-base font-semibold text-neutral-700">Set up your chart of accounts</p>
+                  <p className="mt-1 text-sm text-neutral-500">
+                    Define your assets, liabilities, revenue, and expense accounts to power accurate financial reporting.
+                  </p>
+                </div>
+                <div className="w-full max-w-md space-y-2">
+                  {[
+                    { code: "1000", name: "Cash & Cash Equivalents", type: "Asset", balance: "$48,200" },
+                    { code: "2000", name: "Accounts Payable", type: "Liability", balance: "$12,500" },
+                    { code: "4000", name: "Sales Revenue", type: "Revenue", balance: "$182,000" },
+                    { code: "5000", name: "Operating Expenses", type: "Expense", balance: "$64,300" },
+                  ].map((a, i) => (
+                    <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <span className="font-mono text-xs font-bold text-primary-600 w-10">{a.code}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="truncate text-xs font-semibold text-neutral-800">{a.name}</p>
+                        <p className="text-[10px] text-neutral-400">{a.type}</p>
+                      </div>
+                      <span className="text-xs font-bold text-neutral-700">{a.balance}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <Card variant="outlined" padding={false}>
@@ -494,28 +499,30 @@ export default function FinancePage() {
                 </p>
               </div>
             ) : entries.length === 0 ? (
-              <div className="py-16 text-center">
-                <svg
-                  className="mx-auto mb-3 text-neutral-300"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                  <polyline points="10 9 9 9 8 9" />
-                </svg>
-                <p className="text-sm text-neutral-500">
-                  No journal entries yet. Click &quot;New Entry&quot; to record
-                  your first transaction.
-                </p>
+              <div className="flex flex-col items-center gap-4 py-12 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📒</div>
+                <div>
+                  <p className="text-base font-semibold text-neutral-700">No journal entries yet</p>
+                  <p className="mt-1 text-sm text-neutral-500">
+                    Record debits and credits to maintain accurate books. Every transaction tells the story of your business.
+                  </p>
+                </div>
+                <div className="w-full max-w-md space-y-2">
+                  {[
+                    { ref: "JE-001", desc: "Office supplies purchase", debit: "Expenses $450", credit: "Cash $450", status: "Posted" },
+                    { ref: "JE-002", desc: "Client invoice payment received", debit: "Cash $8,200", credit: "Revenue $8,200", status: "Posted" },
+                    { ref: "JE-003", desc: "Monthly rent accrual", debit: "Rent $3,500", credit: "Payable $3,500", status: "Draft" },
+                  ].map((e, i) => (
+                    <div key={i} className="rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-mono text-[10px] font-bold text-primary-600">{e.ref}</span>
+                        <span className={`text-[10px] font-semibold ${e.status === "Posted" ? "text-primary-600" : "text-amber-500"}`}>{e.status}</span>
+                      </div>
+                      <p className="text-xs font-medium text-neutral-700">{e.desc}</p>
+                      <p className="mt-0.5 text-[10px] text-neutral-400">{e.debit} · {e.credit}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="flex flex-col gap-3">

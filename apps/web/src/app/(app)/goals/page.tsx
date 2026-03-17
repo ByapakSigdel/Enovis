@@ -273,16 +273,84 @@ export default function GoalsPage() {
 
         {/* Empty state */}
         {!loading && filteredGoals.length === 0 && (
-          <Card variant="outlined" className="py-12 text-center">
-            <p className="text-3xl">🎯</p>
-            <p className="mt-2 font-medium text-neutral-600">
-              No {activeTab} goals yet.
-            </p>
-            <p className="mt-1 text-sm text-neutral-400">
-              {activeTab === "active"
-                ? "Tap the + button to create your first goal."
-                : `You don't have any ${activeTab} goals.`}
-            </p>
+          <Card variant="elevated" className="overflow-hidden">
+            {/* Hero */}
+            <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
+              <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                🎯
+              </div>
+              <h3 className="text-xl font-bold text-neutral-800">
+                {activeTab === "active"
+                  ? "Set Your Next Goal"
+                  : activeTab === "completed"
+                    ? "No Completed Goals Yet"
+                    : "No Paused Goals"}
+              </h3>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-neutral-500">
+                {activeTab === "active"
+                  ? "Goals give your efforts direction. Set a target, break it into milestones, and track your progress every step of the way."
+                  : activeTab === "completed"
+                    ? "When you mark a goal as done, it'll show up here as a record of your achievements."
+                    : "Paused goals will appear here. Use pausing to revisit goals without losing your progress."}
+              </p>
+            </div>
+
+            {/* Category preview */}
+            {activeTab === "active" && (
+              <div className="border-t border-sage-100 px-6 py-5">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                  Goals by category
+                </p>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { icon: "🏃", label: "Fitness", bg: "bg-orange-100", progress: 65 },
+                    { icon: "📚", label: "Education", bg: "bg-amber-100", progress: 30 },
+                    { icon: "💰", label: "Finance", bg: "bg-emerald-100", progress: 80 },
+                    { icon: "🧘", label: "Health", bg: "bg-purple-100", progress: 50 },
+                    { icon: "💼", label: "Career", bg: "bg-blue-100", progress: 20 },
+                    { icon: "🌱", label: "Personal", bg: "bg-green-100", progress: 45 },
+                  ].map((cat) => (
+                    <div key={cat.label} className="flex flex-col items-center gap-1.5 rounded-xl bg-sage-50 p-2.5">
+                      <span className={cn("flex h-8 w-8 items-center justify-center rounded-lg text-base", cat.bg)}>
+                        {cat.icon}
+                      </span>
+                      <span className="text-xs font-medium text-neutral-600">{cat.label}</span>
+                      <div className="h-1 w-full rounded-full bg-sage-200">
+                        <div
+                          className="h-1 rounded-full bg-primary-400"
+                          style={{ width: `${cat.progress}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Milestone teaser */}
+            {activeTab === "active" && (
+              <div className="mx-6 mb-5 flex items-center gap-3 rounded-xl bg-primary-50 px-4 py-3">
+                <span className="text-2xl">🏆</span>
+                <div>
+                  <p className="text-sm font-semibold text-primary-800">Break it into milestones</p>
+                  <p className="text-xs text-primary-600">Add checkpoints to celebrate small wins along the way</p>
+                </div>
+              </div>
+            )}
+
+            {/* CTA */}
+            {activeTab === "active" && (
+              <div className="px-6 pb-7">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="w-full"
+                  onClick={() => setShowForm(true)}
+                >
+                  Create Your First Goal
+                </Button>
+              </div>
+            )}
           </Card>
         )}
 

@@ -274,14 +274,80 @@ export default function NotesPage() {
 
         {/* Notes Grid */}
         {filteredNotes.length === 0 ? (
-          <Card variant="outlined" className="py-12 text-center">
-            <p className="text-3xl">📝</p>
-            <p className="mt-2 font-medium text-neutral-600">
-              {search ? "No notes match your search." : "No notes yet."}
-            </p>
-            <p className="mt-1 text-sm text-neutral-400">
-              Tap the + button to create your first note.
-            </p>
+          <Card variant="elevated" className="overflow-hidden">
+            {/* Hero */}
+            <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
+              <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                📝
+              </div>
+              <h3 className="text-xl font-bold text-neutral-800">
+                {search ? "No matching notes" : "Capture Your Thoughts"}
+              </h3>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-neutral-500">
+                {search
+                  ? "Try different keywords or clear your search to browse all notes."
+                  : "Jot down ideas, meeting notes, or anything on your mind. Organize them into notebooks and find them instantly with search."}
+              </p>
+            </div>
+
+            {/* Notebook previews */}
+            {!search && (
+              <div className="border-t border-sage-100 px-6 py-5">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                  Organize by notebook
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { label: "Personal", bg: "bg-blue-100", text: "text-blue-700" },
+                    { label: "Work", bg: "bg-amber-100", text: "text-amber-700" },
+                    { label: "Wellness", bg: "bg-green-100", text: "text-green-700" },
+                    { label: "Ideas", bg: "bg-purple-100", text: "text-purple-700" },
+                  ].map((nb) => (
+                    <span
+                      key={nb.label}
+                      className={cn("rounded-full px-3 py-1.5 text-sm font-medium", nb.bg, nb.text)}
+                    >
+                      {nb.label}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex flex-col gap-2">
+                  {[
+                    { title: "Weekly reflection", preview: "This week I accomplished...", notebook: "Personal", tag: "#mindset" },
+                    { title: "Project ideas", preview: "Key features to build next...", notebook: "Work", tag: "#planning" },
+                    { title: "Gratitude list", preview: "Three things I'm grateful for...", notebook: "Wellness", tag: "#gratitude" },
+                  ].map((note) => (
+                    <div key={note.title} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3 opacity-60">
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-0.5 flex items-center gap-2">
+                          <span className="text-sm font-semibold text-neutral-800">{note.title}</span>
+                          <span className="rounded-full bg-primary-50 px-2 py-0.5 text-xs font-medium text-primary-600">{note.tag}</span>
+                        </div>
+                        <p className="text-xs text-neutral-500 line-clamp-1">{note.preview}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CTA */}
+            {!search && (
+              <div className="px-6 pb-7 pt-4">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="w-full"
+                  onClick={() => {
+                    setEditingId(null);
+                    setShowForm(true);
+                  }}
+                >
+                  Write Your First Note
+                </Button>
+              </div>
+            )}
           </Card>
         ) : (
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">

@@ -360,14 +360,49 @@ export default function JournalPage() {
             </div>
 
             {pastEntries.length === 0 ? (
-              <Card variant="outlined" className="py-12 text-center">
-                <p className="text-3xl">📔</p>
-                <p className="mt-2 font-medium text-neutral-600">
-                  No journal entries yet.
-                </p>
-                <p className="mt-1 text-sm text-neutral-400">
-                  Switch to Write to create your first entry.
-                </p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-4 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                    📔
+                  </div>
+                  <div>
+                    <p className="text-base font-semibold text-neutral-800">
+                      Your private sanctuary
+                    </p>
+                    <p className="mt-1 text-sm text-neutral-500">
+                      Capture your thoughts, track your mood, and reflect on your journey. Every great story starts with a single entry.
+                    </p>
+                  </div>
+                  {/* Mock entry cards */}
+                  <div className="w-full space-y-2">
+                    {[
+                      { emoji: "😊", mood: "Great", date: "Yesterday", preview: "Had an amazing productive day. Finished the project ahead of schedule and felt incredibly…" },
+                      { emoji: "😐", mood: "Okay", date: "2 days ago", preview: "Feeling a bit overwhelmed but taking it one step at a time. Grateful for small wins…" },
+                      { emoji: "🌟", mood: "Excellent", date: "3 days ago", preview: "Morning run was incredible. The fresh air cleared my head and I feel ready to tackle…" },
+                    ].map((e, i) => (
+                      <div key={i} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-base shadow-sm">
+                          {e.emoji}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-neutral-700">{e.mood}</span>
+                            <span className="text-[10px] text-neutral-400">{e.date}</span>
+                          </div>
+                          <p className="mt-0.5 truncate text-[11px] text-neutral-500">{e.preview}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full"
+                    onClick={() => setView("write")}
+                  >
+                    Write First Entry
+                  </Button>
+                </div>
               </Card>
             ) : (
               <div className="flex flex-col gap-3">

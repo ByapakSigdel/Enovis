@@ -262,11 +262,42 @@ export default function CrmPage() {
                 </div>
               </Card>
             ) : filteredContacts.length === 0 ? (
-              <Card>
-                <div className="text-center py-8">
-                  <p className="text-sm text-neutral-500">
-                    {contactSearch ? "No contacts match your search." : "No contacts yet. Add your first contact."}
-                  </p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-6 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">👤</div>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-700">
+                      {contactSearch ? "No contacts match your search." : "Build your contact book"}
+                    </p>
+                    {!contactSearch && (
+                      <p className="mt-1 text-xs text-neutral-400">Track leads, customers, and partners in one place with full interaction history.</p>
+                    )}
+                  </div>
+                  {!contactSearch && (
+                    <>
+                      <div className="w-full space-y-2">
+                        {[
+                          { name: "Sarah Johnson", company: "Acme Corp", type: "Customer", score: 92 },
+                          { name: "Michael Lee", company: "TechStart", type: "Lead", score: 74 },
+                          { name: "Emma Davis", company: "BlueSky Ltd", type: "Partner", score: 88 },
+                        ].map((c, i) => (
+                          <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-2.5 text-left opacity-75">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-bold text-primary-700">
+                              {c.name[0]}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-semibold text-neutral-800">{c.name}</p>
+                              <p className="text-[10px] text-neutral-400">{c.company} · {c.type}</p>
+                            </div>
+                            <span className="text-[10px] font-bold text-primary-600">{c.score}pts</span>
+                          </div>
+                        ))}
+                      </div>
+                      <Button variant="primary" size="sm" className="w-full" onClick={() => setShowContactModal(true)}>
+                        Add First Contact
+                      </Button>
+                    </>
+                  )}
                 </div>
               </Card>
             ) : (
@@ -341,9 +372,31 @@ export default function CrmPage() {
                 </div>
               </Card>
             ) : deals.length === 0 ? (
-              <Card>
-                <div className="text-center py-8">
-                  <p className="text-sm text-neutral-500">No deals yet. Create your first deal.</p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-6 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🤝</div>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-700">No deals in the pipeline</p>
+                    <p className="mt-1 text-xs text-neutral-400">Track opportunities from first contact to closed deal. See probability, value, and expected close dates at a glance.</p>
+                  </div>
+                  <div className="w-full space-y-2">
+                    {[
+                      { name: "Enterprise License", value: "$48,000", stage: "Proposal", prob: "65%" },
+                      { name: "Annual Support Plan", value: "$12,000", stage: "Negotiation", prob: "80%" },
+                      { name: "Consulting Project", value: "$24,500", stage: "Discovery", prob: "40%" },
+                    ].map((d, i) => (
+                      <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-2.5 text-left opacity-75">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-neutral-800">{d.name}</p>
+                          <p className="text-[10px] text-neutral-400">{d.stage} · {d.prob} probability</p>
+                        </div>
+                        <span className="text-xs font-bold text-primary-600">{d.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="primary" size="sm" className="w-full" onClick={() => setShowDealModal(true)}>
+                    Create First Deal
+                  </Button>
                 </div>
               </Card>
             ) : (
@@ -393,9 +446,23 @@ export default function CrmPage() {
                 </div>
               </Card>
             ) : pipelines.length === 0 ? (
-              <Card>
-                <div className="text-center py-8">
-                  <p className="text-sm text-neutral-500">No pipelines yet. Create your first pipeline.</p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-6 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🔀</div>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-700">No pipelines yet</p>
+                    <p className="mt-1 text-xs text-neutral-400">Create a sales pipeline with custom stages to visualize and manage your deal flow from lead to close.</p>
+                  </div>
+                  <div className="flex w-full items-center gap-1.5">
+                    {["Lead", "Qualify", "Propose", "Negotiate", "Close"].map((stage, i) => (
+                      <div key={i} className="flex-1 rounded-lg bg-primary-50 px-1.5 py-2 text-center opacity-75">
+                        <p className="text-[10px] font-semibold text-primary-700">{stage}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="primary" size="sm" className="w-full" onClick={() => setShowPipelineModal(true)}>
+                    Create First Pipeline
+                  </Button>
                 </div>
               </Card>
             ) : (

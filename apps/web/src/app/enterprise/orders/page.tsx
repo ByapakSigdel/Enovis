@@ -459,33 +459,42 @@ export default function OrdersPage() {
             </button>
           </Card>
         ) : filteredOrders.length === 0 ? (
-          <Card variant="outlined" className="py-16 text-center">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-sage-100 text-neutral-400">
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <path d="M16 10a4 4 0 01-8 0" />
-              </svg>
+          <Card variant="elevated" className="overflow-hidden py-6 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🛒</div>
+              <div>
+                <p className="text-base font-semibold text-neutral-700">
+                  {search || statusFilter !== "all"
+                    ? "No matching orders"
+                    : "Manage your orders"}
+                </p>
+                <p className="mt-1 text-sm text-neutral-500">
+                  {search || statusFilter !== "all"
+                    ? "Try adjusting your search or filters."
+                    : "Track every order from placement to fulfillment. See status, totals, and customer details at a glance."}
+                </p>
+              </div>
+              {!(search || statusFilter !== "all") && (
+                <div className="w-full max-w-sm space-y-2 px-4">
+                  {[
+                    { ref: "ORD-0105", customer: "Jane Smith", total: "$1,240", status: "Processing", date: "Today" },
+                    { ref: "ORD-0104", customer: "Bob Chen", total: "$580", status: "Shipped", date: "Yesterday" },
+                    { ref: "ORD-0103", customer: "Acme Corp", total: "$8,900", status: "Delivered", date: "Mar 12" },
+                  ].map((o, i) => (
+                    <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-neutral-800">{o.ref} · {o.customer}</p>
+                        <p className="text-[10px] text-neutral-400">{o.date}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs font-bold text-neutral-700">{o.total}</p>
+                        <p className={`text-[10px] font-semibold ${o.status === "Delivered" ? "text-primary-600" : o.status === "Shipped" ? "text-blue-500" : "text-amber-500"}`}>{o.status}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="text-base font-semibold text-neutral-700">
-              {search || statusFilter !== "all"
-                ? "No matching orders"
-                : "No orders yet"}
-            </p>
-            <p className="mt-1 text-sm text-neutral-500">
-              {search || statusFilter !== "all"
-                ? "Try adjusting your search or filters."
-                : "Create your first order to get started."}
-            </p>
           </Card>
         ) : (
           <div className="flex flex-col gap-3">

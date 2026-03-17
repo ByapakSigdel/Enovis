@@ -429,35 +429,48 @@ export default function ProjectsPage() {
 
       {/* ---- Empty state ------------------------------------------- */}
       {!loading && !error && projects.length === 0 && (
-        <Card variant="outlined">
-          <div className="flex flex-col items-center gap-4 py-12 text-center">
-            <div className="rounded-full bg-sage-100 p-4">
-              <svg
-                className="h-10 w-10 text-sage-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
-                />
-              </svg>
+        <Card variant="elevated" className="overflow-hidden">
+          <div className="flex flex-col items-center gap-4 py-8 text-center">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+              🗂️
             </div>
             <div>
-              <p className="font-medium text-neutral-700">No projects yet</p>
+              <p className="text-lg font-semibold text-neutral-700">No projects yet</p>
               <p className="mt-1 text-sm text-neutral-500">
-                Create your first project to get started
+                Organize work into projects. Track milestones, assign tasks, set deadlines, and keep your team aligned.
               </p>
+            </div>
+            {/* Mock project cards preview */}
+            <div className="w-full space-y-2">
+              {[
+                { code: "PRJ", name: "Website Redesign", status: "Active", progress: 68, due: "Apr 15" },
+                { code: "MKT", name: "Q2 Marketing Campaign", status: "Planning", progress: 20, due: "May 1" },
+                { code: "OPS", name: "System Migration", status: "Active", progress: 45, due: "Mar 30" },
+              ].map((p, i) => (
+                <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-100 text-xs font-bold text-primary-700">
+                    {p.code}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-neutral-800">{p.name}</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <div className="h-1 flex-1 overflow-hidden rounded-full bg-sage-200">
+                        <div className="h-full rounded-full bg-primary-400" style={{ width: `${p.progress}%` }} />
+                      </div>
+                      <span className="text-[10px] text-neutral-400">{p.progress}%</span>
+                    </div>
+                  </div>
+                  <span className="text-[10px] text-neutral-400 shrink-0">Due {p.due}</span>
+                </div>
+              ))}
             </div>
             <Button
               variant="primary"
               size="sm"
+              className="w-full"
               onClick={() => setShowCreateModal(true)}
             >
-              Create Project
+              Create First Project
             </Button>
           </div>
         </Card>
@@ -800,9 +813,11 @@ export default function ProjectsPage() {
                       {!tasksLoading &&
                         !tasksError &&
                         tasks.length === 0 && (
-                          <p className="mt-4 text-center text-sm text-neutral-400">
-                            No tasks yet. Add one above to get started.
-                          </p>
+                          <div className="mt-4 flex flex-col items-center gap-2 py-6 text-center">
+                            <span className="text-2xl">✅</span>
+                            <p className="text-sm font-medium text-neutral-600">No tasks yet</p>
+                            <p className="text-xs text-neutral-400">Add a task above to start breaking this project into actionable steps.</p>
+                          </div>
                         )}
 
                       {/* ---- Tasks list ---- */}

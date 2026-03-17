@@ -479,33 +479,42 @@ export default function InventoryPage() {
             </button>
           </Card>
         ) : filteredProducts.length === 0 ? (
-          <Card variant="outlined" className="py-16 text-center">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-sage-100 text-neutral-400">
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                <line x1="12" y1="22.08" x2="12" y2="12" />
-              </svg>
+          <Card variant="elevated" className="overflow-hidden py-6 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📦</div>
+              <div>
+                <p className="text-base font-semibold text-neutral-700">
+                  {search || statusFilter !== "all"
+                    ? "No matching products"
+                    : "Stock your inventory"}
+                </p>
+                <p className="mt-1 text-sm text-neutral-500">
+                  {search || statusFilter !== "all"
+                    ? "Try adjusting your search or filters."
+                    : "Track products, manage stock levels, get low-stock alerts, and record every movement."}
+                </p>
+              </div>
+              {!(search || statusFilter !== "all") && (
+                <div className="w-full max-w-sm space-y-2 px-4">
+                  {[
+                    { name: "Premium Laptop Stand", sku: "SKU-1042", qty: 24, status: "In Stock" },
+                    { name: "Wireless Keyboard", sku: "SKU-2017", qty: 3, status: "Low Stock" },
+                    { name: "USB-C Hub 7-port", sku: "SKU-3085", qty: 0, status: "Out of Stock" },
+                  ].map((p, i) => (
+                    <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-neutral-800">{p.name}</p>
+                        <p className="text-[10px] text-neutral-400">{p.sku}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs font-bold text-neutral-700">{p.qty} units</p>
+                        <p className={`text-[10px] font-semibold ${p.status === "In Stock" ? "text-primary-600" : p.status === "Low Stock" ? "text-amber-500" : "text-red-500"}`}>{p.status}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="text-base font-semibold text-neutral-700">
-              {search || statusFilter !== "all"
-                ? "No matching products"
-                : "No products yet"}
-            </p>
-            <p className="mt-1 text-sm text-neutral-500">
-              {search || statusFilter !== "all"
-                ? "Try adjusting your search or filters."
-                : "Add your first product to get started."}
-            </p>
           </Card>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

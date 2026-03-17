@@ -402,14 +402,74 @@ export default function HabitsPage() {
 
         {/* Habit Cards Grid */}
         {habits.length === 0 ? (
-          <Card variant="elevated">
-            <div className="flex flex-col items-center gap-2 py-8 text-center">
-              <p className="text-lg font-medium text-neutral-600">
-                No habits yet
+          <Card variant="elevated" className="overflow-hidden">
+            {/* Hero */}
+            <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
+              <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                🌱
+              </div>
+              <h3 className="text-xl font-bold text-neutral-800">
+                Build Lasting Habits
+              </h3>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-neutral-500">
+                Small daily actions compound into big results. Track your habits, build streaks, and watch your consistency grow week by week.
               </p>
-              <p className="text-sm text-neutral-400">
-                Tap the + button to create your first habit
+            </div>
+
+            {/* Example habit previews */}
+            <div className="border-t border-sage-100 px-6 py-5">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                Popular habits to track
               </p>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { icon: "🧘", label: "Meditation", bg: "bg-purple-100" },
+                  { icon: "💧", label: "Drink Water", bg: "bg-blue-100" },
+                  { icon: "📖", label: "Daily Reading", bg: "bg-amber-100" },
+                  { icon: "🏃", label: "Exercise", bg: "bg-green-100" },
+                ].map((h) => (
+                  <div key={h.label} className="flex items-center gap-2.5 rounded-xl bg-sage-50 px-3 py-2.5">
+                    <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-base", h.bg)}>
+                      {h.icon}
+                    </span>
+                    <div>
+                      <p className="text-sm font-medium text-neutral-700">{h.label}</p>
+                      <div className="mt-0.5 flex gap-0.5">
+                        {[true, true, true, false, false, false, false].map((done, i) => (
+                          <span
+                            key={i}
+                            className={cn(
+                              "h-2 w-2 rounded-full",
+                              done ? "bg-primary-500" : "bg-sage-200"
+                            )}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Streak teaser */}
+            <div className="mx-6 mb-5 flex items-center gap-3 rounded-xl bg-amber-50 px-4 py-3">
+              <span className="text-2xl">🔥</span>
+              <div>
+                <p className="text-sm font-semibold text-amber-800">Build your streak</p>
+                <p className="text-xs text-amber-600">Check in daily and watch your streak counter climb</p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="px-6 pb-7">
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full"
+                onClick={() => setShowForm(true)}
+              >
+                Create Your First Habit
+              </Button>
             </div>
           </Card>
         ) : (

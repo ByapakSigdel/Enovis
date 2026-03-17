@@ -265,10 +265,11 @@ export default function HealthPage() {
             </div>
 
             {metrics.length === 0 ? (
-              <div className="flex h-40 items-center justify-center">
-                <p className="text-sm text-neutral-400">
-                  No health data yet. Tap + to log a metric.
-                </p>
+              <div className="flex h-40 items-center justify-center rounded-xl bg-sage-50">
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <span className="text-3xl opacity-40">📊</span>
+                  <p className="text-xs font-medium text-neutral-400">Log metrics to see your weekly trend</p>
+                </div>
               </div>
             ) : (
               <>
@@ -372,14 +373,46 @@ export default function HealthPage() {
         </div>
 
         {metrics.length === 0 ? (
-          <Card variant="outlined" className="py-12 text-center">
-            <p className="text-3xl">🌱</p>
-            <p className="mt-2 font-medium text-neutral-600">
-              No health metrics yet.
-            </p>
-            <p className="mt-1 text-sm text-neutral-400">
-              Tap the + button to start tracking.
-            </p>
+          <Card variant="elevated" className="overflow-hidden">
+            <div className="flex flex-col items-center gap-4 py-4 text-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                🌱
+              </div>
+              <div>
+                <p className="text-base font-semibold text-neutral-800">
+                  Build your health picture
+                </p>
+                <p className="mt-1 text-sm text-neutral-500">
+                  Track weight, sleep, water, steps, heart rate, and more. See trends over time and celebrate your progress.
+                </p>
+              </div>
+              {/* Mock metric cards */}
+              <div className="grid w-full grid-cols-2 gap-2">
+                {[
+                  { emoji: "⚖️", label: "Weight", value: "72.4 kg", trend: "↓ 0.6 kg" },
+                  { emoji: "😴", label: "Sleep", value: "7.5 hrs", trend: "↑ 30 min" },
+                  { emoji: "💧", label: "Water", value: "2.1 L", trend: "On track" },
+                  { emoji: "👣", label: "Steps", value: "8,432", trend: "↑ 1,200" },
+                ].map((m, i) => (
+                  <div key={i} className="flex flex-col gap-1 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-base">{m.emoji}</span>
+                      <span className="text-[11px] font-medium text-neutral-500">{m.label}</span>
+                    </div>
+                    <p className="text-sm font-bold text-neutral-800">{m.value}</p>
+                    <p className="text-[10px] text-primary-500">{m.trend}</p>
+                  </div>
+                ))}
+              </div>
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full"
+                onClick={() => setShowForm(true)}
+              >
+                Log First Metric
+              </Button>
+            </div>
           </Card>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">

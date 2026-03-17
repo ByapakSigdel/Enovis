@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { cn, getGreeting, formatDate } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
@@ -91,10 +92,49 @@ export default function DashboardPage() {
             {loading ? (
               <p className="text-sm text-neutral-400">Loading habits...</p>
             ) : topHabits.length === 0 ? (
-              <Card>
-                <p className="py-4 text-center text-sm text-neutral-500">
-                  No habits tracked yet. Create one to get started.
-                </p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-4 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                    🔥
+                  </div>
+                  <div>
+                    <p className="text-base font-semibold text-neutral-800">
+                      Build powerful streaks
+                    </p>
+                    <p className="mt-1 text-sm text-neutral-500">
+                      Small daily habits compound into big results. Track your streaks here and stay consistent.
+                    </p>
+                  </div>
+                  {/* Mock habit previews */}
+                  <div className="w-full space-y-2">
+                    {[
+                      { icon: "🏃", label: "Morning Run", streak: 12, color: "bg-primary-500" },
+                      { icon: "📚", label: "Read 20 mins", streak: 7, color: "bg-blue-400" },
+                      { icon: "💧", label: "Drink Water", streak: 21, color: "bg-cyan-400" },
+                    ].map((h, i) => (
+                      <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-lg shadow-sm">
+                          {h.icon}
+                        </span>
+                        <div className="flex-1">
+                          <p className="text-xs font-semibold text-neutral-800">{h.label}</p>
+                          <div className="mt-1 flex gap-0.5">
+                            {Array.from({ length: 7 }).map((_, j) => (
+                              <div key={j} className={cn("h-1.5 w-1.5 rounded-full", j < 5 ? h.color : "bg-sage-200")} />
+                            ))}
+                          </div>
+                        </div>
+                        <span className="text-xs font-bold text-primary-600">{h.streak} 🔥</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Link
+                    href="/habits"
+                    className="flex w-full items-center justify-center rounded-xl bg-primary-500 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-600 active:bg-primary-700"
+                  >
+                    Create First Habit
+                  </Link>
+                </div>
               </Card>
             ) : (
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

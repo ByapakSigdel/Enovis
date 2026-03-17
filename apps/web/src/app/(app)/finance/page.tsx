@@ -472,10 +472,31 @@ export default function FinancePage() {
               </div>
 
               {budgets.length === 0 ? (
-                <Card>
-                  <p className="py-4 text-center text-sm text-neutral-400">
-                    No budgets set up yet.
-                  </p>
+                <Card className="overflow-hidden">
+                  <div className="flex flex-col items-center px-4 py-6 text-center">
+                    <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-2xl">
+                      💼
+                    </div>
+                    <p className="font-semibold text-neutral-700">No budgets yet</p>
+                    <p className="mt-1 text-xs leading-relaxed text-neutral-400">
+                      Set spending limits per category to stay on track each month.
+                    </p>
+                    <div className="mt-3 flex flex-col gap-1.5 w-full">
+                      {[
+                        { emoji: "🛒", label: "Groceries", pct: 70 },
+                        { emoji: "🍔", label: "Food", pct: 45 },
+                        { emoji: "🎬", label: "Entertainment", pct: 20 },
+                      ].map((b) => (
+                        <div key={b.label} className="flex items-center gap-2 rounded-lg bg-sage-50 px-3 py-2 opacity-60">
+                          <span className="text-base">{b.emoji}</span>
+                          <span className="flex-1 text-xs font-medium text-neutral-700">{b.label}</span>
+                          <div className="w-16 h-1.5 rounded-full bg-sage-200">
+                            <div className="h-1.5 rounded-full bg-primary-400" style={{ width: `${b.pct}%` }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </Card>
               ) : (
                 <div className="flex flex-col gap-3">
@@ -535,10 +556,50 @@ export default function FinancePage() {
               </div>
 
               {recentTransactions.length === 0 ? (
-                <Card>
-                  <p className="py-4 text-center text-sm text-neutral-400">
-                    No transactions yet. Tap + to add one.
-                  </p>
+                <Card variant="elevated" className="overflow-hidden">
+                  <div className="flex flex-col items-center gap-4 py-4 text-center">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                      💳
+                    </div>
+                    <div>
+                      <p className="text-base font-semibold text-neutral-800">
+                        Track every dollar
+                      </p>
+                      <p className="mt-1 text-sm text-neutral-500">
+                        Log income and expenses to see where your money goes. Smart category tags make it effortless.
+                      </p>
+                    </div>
+                    {/* Mock transaction rows */}
+                    <div className="w-full rounded-xl bg-sage-50 p-3">
+                      <div className="flex flex-col divide-y divide-sage-100">
+                        {[
+                          { icon: "🛒", label: "Grocery Store", cat: "Food", amount: "–$64.20", color: "text-red-500" },
+                          { icon: "💼", label: "Freelance Payment", cat: "Income", amount: "+$1,200.00", color: "text-primary-600" },
+                          { icon: "☕", label: "Coffee Shop", cat: "Food", amount: "–$5.50", color: "text-red-500" },
+                          { icon: "🏠", label: "Rent", cat: "Housing", amount: "–$1,500.00", color: "text-red-500" },
+                        ].map((tx, i) => (
+                          <div key={i} className="flex items-center gap-3 py-2 first:pt-0 last:pb-0 opacity-75">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-base shadow-sm">
+                              {tx.icon}
+                            </span>
+                            <div className="flex-1 text-left">
+                              <p className="text-xs font-medium text-neutral-700">{tx.label}</p>
+                              <p className="text-[10px] text-neutral-400">{tx.cat}</p>
+                            </div>
+                            <span className={cn("text-xs font-semibold", tx.color)}>{tx.amount}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      className="w-full"
+                      onClick={() => setShowAddForm(true)}
+                    >
+                      Add First Transaction
+                    </Button>
+                  </div>
                 </Card>
               ) : (
                 <Card>

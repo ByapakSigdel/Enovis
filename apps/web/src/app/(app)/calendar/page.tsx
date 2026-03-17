@@ -329,11 +329,44 @@ export default function CalendarPage() {
                 })}
               </div>
             ) : (
-              <Card className="py-12 text-center">
-                <p className="text-3xl">📅</p>
-                <p className="mt-3 text-sm text-neutral-500">
-                  No events scheduled for this day.
-                </p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-4 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                    📅
+                  </div>
+                  <div>
+                    <p className="text-base font-semibold text-neutral-800">
+                      Nothing scheduled here yet
+                    </p>
+                    <p className="mt-1 text-sm text-neutral-500">
+                      Add meetings, reminders, and personal events. Color-coded and organized so you never miss a moment.
+                    </p>
+                  </div>
+                  {/* Mock event previews */}
+                  <div className="w-full space-y-2">
+                    {[
+                      { color: "bg-primary-500", title: "Team Standup", time: "9:00 AM", tag: "Work" },
+                      { color: "bg-blue-400", title: "Dentist Appointment", time: "2:30 PM", tag: "Health" },
+                      { color: "bg-amber-400", title: "Gym Session", time: "6:00 PM", tag: "Personal" },
+                    ].map((ev, i) => (
+                      <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
+                        <div className={cn("h-10 w-1.5 shrink-0 rounded-full", ev.color)} />
+                        <div className="flex-1">
+                          <p className="text-xs font-semibold text-neutral-800">{ev.title}</p>
+                          <p className="text-[10px] text-neutral-400">{ev.time} · {ev.tag}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full"
+                    onClick={() => setShowAddForm(true)}
+                  >
+                    Add First Event
+                  </Button>
+                </div>
               </Card>
             )}
           </div>

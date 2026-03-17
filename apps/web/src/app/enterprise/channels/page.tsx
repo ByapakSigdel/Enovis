@@ -295,18 +295,16 @@ export default function ChannelsPage() {
               </button>
             </div>
           ) : filteredChannels.length === 0 ? (
-            <div className="px-2 py-12 text-center">
-              <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-sage-100 text-neutral-400">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
+            <div className="px-2 py-10 text-center">
+              <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
+                💬
               </div>
-              <p className="text-sm font-medium text-neutral-600">
+              <p className="text-sm font-semibold text-neutral-700">
                 {channelSearch ? "No matching channels" : "No channels yet"}
               </p>
               {!channelSearch && (
                 <p className="mt-1 text-xs text-neutral-400">
-                  Create one to get started
+                  Create a channel to bring your team together
                 </p>
               )}
             </div>
@@ -374,19 +372,37 @@ export default function ChannelsPage() {
       <main className="flex flex-1 flex-col">
         {!selectedChannel ? (
           /* ---- No channel selected ----------------------------------- */
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sage-100 text-neutral-400">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              </svg>
+          <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center px-6">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+              💬
             </div>
-            <h3 className="text-lg font-semibold text-neutral-700">
-              Select a channel
-            </h3>
-            <p className="max-w-xs text-sm text-neutral-500">
-              Choose a channel from the sidebar to start viewing and sending
-              messages.
-            </p>
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-700">
+                Your team&apos;s communication hub
+              </h3>
+              <p className="mt-1 max-w-xs text-sm text-neutral-500">
+                Select a channel from the sidebar to read messages, or create a new one to kick off a conversation.
+              </p>
+            </div>
+            {/* Mock message previews */}
+            <div className="w-full max-w-sm space-y-2 text-left">
+              {[
+                { avatar: "🧑", name: "Alex Chen", msg: "Just pushed the latest design updates to staging", time: "2m ago" },
+                { avatar: "👩", name: "Sarah Kim", msg: "Great work everyone! The Q3 report is ready for review", time: "15m ago" },
+                { avatar: "🧔", name: "James Lee", msg: "Standup in 10 minutes — don't forget!", time: "1h ago" },
+              ].map((m, i) => (
+                <div key={i} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3 opacity-60">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-base shadow-sm">{m.avatar}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-semibold text-neutral-800">{m.name}</span>
+                      <span className="text-[10px] text-neutral-400 shrink-0">{m.time}</span>
+                    </div>
+                    <p className="mt-0.5 truncate text-[11px] text-neutral-500">{m.msg}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <>
@@ -436,15 +452,13 @@ export default function ChannelsPage() {
                   </button>
                 </div>
               ) : messages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sage-100 text-neutral-400">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
+                <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
+                    🌟
                   </div>
-                  <p className="font-medium text-neutral-600">No messages yet</p>
+                  <p className="font-semibold text-neutral-700">No messages yet</p>
                   <p className="text-sm text-neutral-400">
-                    Be the first to say something in #{selectedChannel.name}
+                    Be the first to start the conversation in #{selectedChannel.name}
                   </p>
                 </div>
               ) : (

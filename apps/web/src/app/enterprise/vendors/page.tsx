@@ -234,11 +234,44 @@ export default function VendorsPage() {
                 </div>
               </Card>
             ) : filteredVendors.length === 0 ? (
-              <Card>
-                <div className="text-center py-8">
-                  <p className="text-sm text-neutral-500">
-                    {vendorSearch ? "No vendors match your search." : "No vendors yet. Add your first vendor."}
-                  </p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-6 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🏭</div>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-700">
+                      {vendorSearch ? "No vendors match your search." : "Build your vendor network"}
+                    </p>
+                    {!vendorSearch && (
+                      <p className="mt-1 text-xs text-neutral-400">
+                        Manage suppliers, track contacts, and issue purchase orders — all from one place.
+                      </p>
+                    )}
+                  </div>
+                  {!vendorSearch && (
+                    <>
+                      <div className="w-full space-y-2">
+                        {[
+                          { name: "TechParts Co.", contact: "John Wu", status: "Active" },
+                          { name: "Global Supply Ltd", contact: "Maria Santos", status: "Active" },
+                          { name: "FastShip Logistics", contact: "David Kim", status: "Inactive" },
+                        ].map((v, i) => (
+                          <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-2.5 text-left opacity-75">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-100 text-xs font-bold text-primary-700">
+                              {v.name[0]}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-semibold text-neutral-800">{v.name}</p>
+                              <p className="text-[10px] text-neutral-400">{v.contact}</p>
+                            </div>
+                            <span className={`text-[10px] font-semibold ${v.status === "Active" ? "text-primary-600" : "text-neutral-400"}`}>{v.status}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <Button variant="primary" size="sm" className="w-full" onClick={() => setShowVendorModal(true)}>
+                        Add First Vendor
+                      </Button>
+                    </>
+                  )}
                 </div>
               </Card>
             ) : (
@@ -312,9 +345,33 @@ export default function VendorsPage() {
                 </div>
               </Card>
             ) : purchaseOrders.length === 0 ? (
-              <Card>
-                <div className="text-center py-8">
-                  <p className="text-sm text-neutral-500">No purchase orders yet.</p>
+              <Card variant="elevated" className="overflow-hidden">
+                <div className="flex flex-col items-center gap-4 py-6 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📋</div>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-700">No purchase orders yet</p>
+                    <p className="mt-1 text-xs text-neutral-400">Issue POs to vendors, track delivery status, and maintain a complete procurement audit trail.</p>
+                  </div>
+                  <div className="w-full space-y-2">
+                    {[
+                      { ref: "PO-001", vendor: "TechParts Co.", total: "$4,800", status: "Approved" },
+                      { ref: "PO-002", vendor: "Global Supply Ltd", total: "$12,200", status: "Pending" },
+                      { ref: "PO-003", vendor: "FastShip Logistics", total: "$2,100", status: "Received" },
+                    ].map((po, i) => (
+                      <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-2.5 text-left opacity-75">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-neutral-800">{po.ref} · {po.vendor}</p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-xs font-bold text-neutral-700">{po.total}</p>
+                          <p className={`text-[10px] font-semibold ${po.status === "Received" || po.status === "Approved" ? "text-primary-600" : "text-amber-500"}`}>{po.status}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="primary" size="sm" className="w-full" onClick={() => setShowPoModal(true)}>
+                    Create First PO
+                  </Button>
                 </div>
               </Card>
             ) : (

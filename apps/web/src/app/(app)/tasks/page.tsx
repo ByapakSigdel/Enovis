@@ -378,11 +378,63 @@ export default function TasksPage() {
 
             {/* Empty state */}
             {filteredTasks.length === 0 && (
-              <div className="py-16 text-center">
-                <p className="text-4xl">📋</p>
-                <p className="mt-3 text-sm text-neutral-500">
-                  No tasks found. Try a different filter or add a new task.
-                </p>
+              <div className="py-8">
+                <Card variant="elevated" className="overflow-hidden">
+                  {/* Hero section */}
+                  <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
+                    <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
+                      📋
+                    </div>
+                    <h3 className="text-xl font-bold text-neutral-800">
+                      {search ? "No matching tasks" : activeFilter === "completed" ? "Nothing completed yet" : "Your task list is clear"}
+                    </h3>
+                    <p className="mt-2 max-w-xs text-sm leading-relaxed text-neutral-500">
+                      {search
+                        ? "Try a different search term or clear the filter to see all tasks."
+                        : activeFilter === "completed"
+                          ? "Complete some tasks and they'll appear here as a record of your progress."
+                          : "Stay on top of your day — add your first task and start checking things off."}
+                    </p>
+                  </div>
+
+                  {/* Feature previews */}
+                  {!search && activeFilter === "all" && (
+                    <div className="border-t border-sage-100 px-6 py-5">
+                      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                        What you can track
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        {[
+                          { emoji: "🔴", label: "Urgent tasks", desc: "Flag critical items that need immediate attention" },
+                          { emoji: "📅", label: "Due dates", desc: "Set deadlines and see tasks filtered by Today / Upcoming" },
+                          { emoji: "✅", label: "Progress history", desc: "Every completed task is saved so you can look back" },
+                        ].map((item) => (
+                          <div key={item.label} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3">
+                            <span className="text-lg">{item.emoji}</span>
+                            <div>
+                              <p className="text-sm font-semibold text-neutral-800">{item.label}</p>
+                              <p className="text-xs text-neutral-500">{item.desc}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* CTA */}
+                  {!search && (
+                    <div className="px-6 pb-7 pt-4">
+                      <Button
+                        variant="primary"
+                        size="lg"
+                        className="w-full"
+                        onClick={() => setShowAddForm(true)}
+                      >
+                        Add Your First Task
+                      </Button>
+                    </div>
+                  )}
+                </Card>
               </div>
             )}
           </>
