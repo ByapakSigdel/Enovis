@@ -3,7 +3,7 @@ import { Client } from "cassandra-driver";
 const client = new Client({
   contactPoints: [process.env.CASSANDRA_HOST || "127.0.0.1"],
   localDataCenter: process.env.CASSANDRA_DC || "datacenter1",
-  keyspace: process.env.CASSANDRA_KEYSPACE || "prms",
+  keyspace: process.env.CASSANDRA_KEYSPACE || "enovis",
   credentials: {
     username: process.env.CASSANDRA_USER || "cassandra",
     password: process.env.CASSANDRA_PASSWORD || "cassandra",

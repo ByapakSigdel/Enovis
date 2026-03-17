@@ -79,12 +79,8 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-[#4a7c59]/10 bg-[#fafdf7]/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4a7c59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M17 8c.7-1 1-2.2 1-3.5C18 2.5 16.5 1 14.5 1c-1 0-1.9.4-2.5 1-.6-.6-1.5-1-2.5-1C7.5 1 6 2.5 6 4.5c0 1.3.3 2.5 1 3.5" />
-              <path d="M12 1v16" />
-              <path d="M6 12c-1.5 1.5-3 3.5-3 6 0 2.5 2.5 4 5 4 1.5 0 3-.5 4-1.5 1 1 2.5 1.5 4 1.5 2.5 0 5-1.5 5-4 0-2.5-1.5-4.5-3-6" />
-            </svg>
-            <span className="text-xl font-bold text-[#4a7c59]">PrMS</span>
+            <img src="/images/logo-icon.png" alt="Enovis" className="h-8 w-8" />
+            <span className="text-xl font-bold text-[#4a7c59]">Enovis</span>
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -232,15 +228,11 @@ export default function Home() {
       <footer className="border-t border-[#4a7c59]/10 bg-[#fafdf7]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
           <div className="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a7c59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M17 8c.7-1 1-2.2 1-3.5C18 2.5 16.5 1 14.5 1c-1 0-1.9.4-2.5 1-.6-.6-1.5-1-2.5-1C7.5 1 6 2.5 6 4.5c0 1.3.3 2.5 1 3.5" />
-              <path d="M12 1v16" />
-              <path d="M6 12c-1.5 1.5-3 3.5-3 6 0 2.5 2.5 4 5 4 1.5 0 3-.5 4-1.5 1 1 2.5 1.5 4 1.5 2.5 0 5-1.5 5-4 0-2.5-1.5-4.5-3-6" />
-            </svg>
-            <span className="text-sm font-semibold text-[#4a7c59]">PrMS</span>
+            <img src="/images/logo-icon.png" alt="Enovis" className="h-6 w-6" />
+            <span className="text-sm font-semibold text-[#4a7c59]">Enovis</span>
           </div>
           <p className="text-sm text-neutral-400">
-            &copy; 2026 PrMS. All rights reserved.
+            &copy; 2026 Enovis. All rights reserved.
           </p>
         </div>
       </footer>

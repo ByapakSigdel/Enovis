@@ -37,7 +37,7 @@ npm install <package> --workspace=packages/shared-types
 ```bash
 # In apps/web/package.json, add:
 "dependencies": {
-  "@prms/shared-types": "*"
+  "@enovis/shared-types": "*"
 }
 ```
 
@@ -62,21 +62,21 @@ npm run server:dev
 
 ```typescript
 // In apps/web or apps/server
-import { YourType } from '@prms/shared-types';
+import { YourType } from '@enovis/shared-types';
 ```
 
 ### Using Shared Utils
 
 ```typescript
 // In apps/web or apps/server
-import { yourUtility } from '@prms/shared-utils';
+import { yourUtility } from '@enovis/shared-utils';
 ```
 
 ### Using UI Components
 
 ```typescript
 // In apps/web (or future mobile apps)
-import { YourComponent } from '@prms/ui-components';
+import { YourComponent } from '@enovis/ui-components';
 ```
 
 ## Adding a New App
@@ -89,7 +89,7 @@ import { YourComponent } from '@prms/ui-components';
 ## Adding a New Package
 
 1. Create directory in `packages/`
-2. Add `package.json` with scoped name: `@prms/package-name`
+2. Add `package.json` with scoped name: `@enovis/package-name`
 3. Add `tsconfig.json` if TypeScript
 4. Export from `src/index.ts`
 5. Reference in apps using the scoped name

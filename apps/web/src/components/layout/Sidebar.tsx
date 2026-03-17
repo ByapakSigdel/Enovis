@@ -198,24 +198,14 @@ export default function Sidebar({ items }: SidebarProps) {
           className="flex items-center gap-2 hover:opacity-80"
           aria-label={expanded ? "Collapse sidebar" : "Expand sidebar"}
         >
-          <div className="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center shrink-0">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M17 8c0-5-5-5-5-5s-5 0-5 5c0 3 2 5 5 9c3-4 5-6 5-9z" />
-              <path d="M12 3v10" />
-            </svg>
-          </div>
+          <img 
+            src="/images/logo-icon.png" 
+            alt="Enovis" 
+            className="w-8 h-8 shrink-0"
+          />
           {expanded && (
             <span className="font-semibold text-lg text-primary-700 tracking-tight">
-              PrMS
+              Enovis
             </span>
           )}
         </button>
@@ -277,7 +267,7 @@ export default function Sidebar({ items }: SidebarProps) {
                 {user?.name ?? "User"}
               </p>
               <p className="text-xs text-neutral-400 truncate">
-                {user?.email ?? "user@prms.app"}
+                {user?.email ?? "user@enovis.app"}
               </p>
             </div>
           )}

@@ -1,9 +1,9 @@
 /* ------------------------------------------------------------------ */
-/*  API client – communicates with the PrMS backend (port 4001)       */
+/*  API client – communicates with the Enovis backend (port 4001)    */
 /* ------------------------------------------------------------------ */
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4001";
-const TOKEN_KEY = "prms_auth_token";
+const TOKEN_KEY = "enovis_auth_token";
 
 /* ---- Token helpers ------------------------------------------------ */
 
@@ -155,6 +155,8 @@ export const api = {
     register: (email: string, password: string, name: string) =>
       post<{ token: string; user: Record<string, unknown> }>("/api/auth/register", { email, password, name }),
     me: () => get<Record<string, unknown>>("/api/auth/me"),
+    updateMode: (mode: "individual" | "enterprise") =>
+      put<{ token: string; user: Record<string, unknown> }>("/api/auth/mode", { mode }),
   },
 
   /* Tasks */

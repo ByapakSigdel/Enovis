@@ -1,8 +1,8 @@
 {
-  "name": "prms-monorepo",
+  "name": "enovis-monorepo",
   "version": "0.1.0",
   "private": true,
-  "description": "PrMS - Productivity Management System Monorepo",
+  "description": "Enovis - Productivity Management System Monorepo",
   "workspaces": [
     "apps/*",
     "packages/*"

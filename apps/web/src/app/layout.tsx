@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PrMS - Productivity Management System",
+  title: "Enovis - Productivity Management System",
   description:
     "Centralize. Simplify. Amplify. Your entire productivity life, unified.",
   keywords: [
@@ -26,7 +26,13 @@ export const metadata: Metadata = {
     "wellness",
     "finance",
     "calendar",
+    "enovis",
   ],
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

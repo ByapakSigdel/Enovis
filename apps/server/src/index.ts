@@ -40,7 +40,7 @@ app.use(express.json());
 
 // Health check
 app.get("/api/health-check", (_req, res) => {
-  res.json({ success: true, message: "PrMS API is running" });
+  res.json({ success: true, message: "Enovis API is running" });
 });
 
 // Routes — Individual
@@ -76,7 +76,7 @@ async function start() {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      console.log(`[Server] PrMS API running on http://localhost:${PORT}`);
+      console.log(`[Server] Enovis API running on http://localhost:${PORT}`);
     });
   } catch (err) {
     console.error("[Server] Failed to start:", err);

@@ -1,8 +1,8 @@
 {
-  "name": "prms-server",
+  "name": "enovis-server",
   "version": "0.1.0",
   "private": true,
-  "description": "PrMS Backend API Server",
+  "description": "Enovis Backend API Server",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",

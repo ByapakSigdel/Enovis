@@ -14,7 +14,7 @@ type Step = "select" | "company-setup";
 
 export default function SelectModePage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const [selected, setSelected] = useState<Mode | null>(null);
   const [step, setStep] = useState<Step>("select");
   const [loading, setLoading] = useState(false);
@@ -28,28 +28,49 @@ export default function SelectModePage() {
   async function handleContinue() {
     if (!selected) return;
 
-    if (selected === "individual") {
-      // Individual mode — just go to dashboard
-      router.push("/dashboard");
-      return;
-    }
-
-    // Enterprise mode
-    if (step === "select") {
-      setStep("company-setup");
-      return;
-    }
-
-    // Company setup complete — create enterprise
-    if (!companyName.trim()) {
-      setError("Company name is required");
-      return;
-    }
-
     setLoading(true);
     setError(null);
 
     try {
+      if (selected === "individual") {
+        // Update mode to individual
+        const res = await api.auth.updateMode("individual");
+        if (!res.success || !res.data) {
+          setError(res.error || "Failed to update mode");
+          setLoading(false);
+          return;
+        }
+
+        // Update token with new mode
+        const data = res.data as Record<string, unknown>;
+        if (data.token) {
+          setToken(data.token as string);
+        }
+
+        // Update user in context
+        const userData = data.user as Record<string, unknown>;
+        if (userData) {
+          updateUser({ mode: "individual" });
+        }
+
+        router.push("/dashboard");
+        return;
+      }
+
+      // Enterprise mode
+      if (step === "select") {
+        setLoading(false);
+        setStep("company-setup");
+        return;
+      }
+
+      // Company setup complete — create enterprise
+      if (!companyName.trim()) {
+        setError("Company name is required");
+        setLoading(false);
+        return;
+      }
+
       const res = await api.enterprise.create({
         name: companyName.trim(),
         industry: industry || null,
@@ -73,13 +94,15 @@ export default function SelectModePage() {
       const enterprise = data.enterprise as Record<string, unknown> | undefined;
       if (enterprise?.id) {
         setEnterpriseId(enterprise.id as string);
-        localStorage.setItem("prms_enterprise_id", enterprise.id as string);
+        localStorage.setItem("enovis_enterprise_id", enterprise.id as string);
       }
+
+      // Update user mode in context
+      updateUser({ mode: "enterprise" });
 
       router.push("/enterprise/dashboard");
     } catch {
       setError("Network error. Please try again.");
-    } finally {
       setLoading(false);
     }
   }

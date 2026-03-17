@@ -4,13 +4,13 @@ services:
   # Database
   cassandra:
     image: cassandra:4.1
-    container_name: prms-cassandra
+    container_name: enovis-cassandra
     ports:
       - "9042:9042"
     volumes:
       - cassandra-data:/var/lib/cassandra
     environment:
-      - CASSANDRA_CLUSTER_NAME=PrMSCluster
+      - CASSANDRA_CLUSTER_NAME=EnovisCluster
       - CASSANDRA_DC=dc1
       - CASSANDRA_RACK=rack1
       - MAX_HEAP_SIZE=512M
@@ -23,12 +23,12 @@ services:
       start_period: 60s
     restart: unless-stopped
     networks:
-      - prms-network
+      - enovis-network
 
   # Database Admin UI
   cassandra-web:
     image: ipushc/cassandra-web:latest
-    container_name: prms-cassandra-web
+    container_name: enovis-cassandra-web
     ports:
       - "3002:8083"
     environment:
@@ -41,14 +41,14 @@ services:
         condition: service_healthy
     restart: unless-stopped
     networks:
-      - prms-network
+      - enovis-network
 
   # Backend API Server
   server:
     build:
       context: ./apps/server
       dockerfile: Dockerfile
-    container_name: prms-server
+    container_name: enovis-server
     ports:
       - "3001:3001"
     environment:
@@ -56,7 +56,7 @@ services:
       - PORT=3001
       - CASSANDRA_HOST=cassandra
       - CASSANDRA_PORT=9042
-      - CASSANDRA_KEYSPACE=prms
+      - CASSANDRA_KEYSPACE=enovis
     depends_on:
       cassandra:
         condition: service_healthy
@@ -65,14 +65,14 @@ services:
       - /app/node_modules
     restart: unless-stopped
     networks:
-      - prms-network
+      - enovis-network
 
   # Web Frontend
   web:
     build:
       context: ./apps/web
       dockerfile: Dockerfile
-    container_name: prms-web
+    container_name: enovis-web
     ports:
       - "3000:3000"
     environment:
@@ -86,10 +86,10 @@ services:
       - /app/.next
     restart: unless-stopped
     networks:
-      - prms-network
+      - enovis-network
 
 networks:
-  prms-network:
+  enovis-network:
     driver: bridge
 
 volumes:

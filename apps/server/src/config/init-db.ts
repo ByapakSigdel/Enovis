@@ -1,12 +1,12 @@
 /**
  * Database initialization script.
- * Creates the keyspace and all tables for PrMS.
+ * Creates the keyspace and all tables for Enovis.
  * Run with: npm run db:init
  */
 
 import { Client } from "cassandra-driver";
 
-const KEYSPACE = process.env.CASSANDRA_KEYSPACE || "prms";
+const KEYSPACE = process.env.CASSANDRA_KEYSPACE || "enovis";
 
 async function initDB() {
   // Connect without keyspace first to create it

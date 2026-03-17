@@ -11,7 +11,7 @@ import {
 import type { User } from "@/types";
 import { api, setToken, getToken, clearToken, keysToCamel } from "@/lib/api";
 
-const USER_KEY = "prms_auth_user";
+const USER_KEY = "enovis_auth_user";
 
 /* ------------------------------------------------------------------ */
 /*  Context types                                                      */
@@ -23,6 +23,7 @@ export interface AuthContextValue {
   signIn: (email: string, password: string) => Promise<{ ok: boolean; error?: string }>;
   signUp: (email: string, password: string, name: string) => Promise<{ ok: boolean; error?: string }>;
   signOut: () => void;
+  updateUser: (userData: Partial<User>) => void;
 }
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -130,6 +131,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(USER_KEY);
   }, []);
 
+  const updateUser = useCallback((userData: Partial<User>) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      const updated = { ...prev, ...userData };
+      localStorage.setItem(USER_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -138,8 +148,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signUp,
       signOut,
+      updateUser,
     }),
-    [user, isLoading, signIn, signUp, signOut]
+    [user, isLoading, signIn, signUp, signOut, updateUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

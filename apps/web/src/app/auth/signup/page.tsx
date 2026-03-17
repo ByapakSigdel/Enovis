@@ -9,19 +9,13 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function SignUpPage() {
   const router = useRouter();
-  const { signUp, isAuthenticated } = useAuth();
+  const { signUp } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // Redirect if already authenticated
-  if (isAuthenticated) {
-    router.replace("/dashboard");
-    return null;
-  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -40,7 +34,7 @@ export default function SignUpPage() {
     const result = await signUp(email, password, name);
 
     if (result.ok) {
-      router.replace("/dashboard");
+      router.push("/onboarding/select-mode");
     } else {
       setError(result.error ?? "Something went wrong.");
       setLoading(false);
@@ -52,27 +46,16 @@ export default function SignUpPage() {
       <div className="rounded-2xl bg-white px-8 py-10 shadow-xl shadow-[#4a7c59]/10">
         {/* Logo */}
         <div className="mb-8 flex flex-col items-center">
-          <div className="mb-3 flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#4a7c59"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M17 8c.7-1 1-2.2 1-3.5C18 2.5 16.5 1 14.5 1c-1 0-1.9.4-2.5 1-.6-.6-1.5-1-2.5-1C7.5 1 6 2.5 6 4.5c0 1.3.3 2.5 1 3.5" />
-              <path d="M12 1v16" />
-              <path d="M6 12c-1.5 1.5-3 3.5-3 6 0 2.5 2.5 4 5 4 1.5 0 3-.5 4-1.5 1 1 2.5 1.5 4 1.5 2.5 0 5-1.5 5-4 0-2.5-1.5-4.5-3-6" />
-            </svg>
-            <span className="text-2xl font-bold text-[#4a7c59]">PrMS</span>
+          <div className="mb-4">
+            <img
+              src="/images/logo-vertical.png"
+              alt="Enovis"
+              className="h-20 w-auto"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-neutral-900">Join PrMS</h1>
+          <h1 className="text-2xl font-bold text-neutral-900">Join Enovis</h1>
           <p className="mt-1.5 text-sm text-neutral-500">
-            Start your journey to a balanced life.
+            Start your journey to enhanced productivity.
           </p>
         </div>
 
@@ -244,7 +227,7 @@ export default function SignUpPage() {
 
       {/* Footer */}
       <p className="mt-6 text-center text-xs text-neutral-400">
-        PrMS 2026 Wellness Module
+        Enovis © 2026
       </p>
     </div>
   );

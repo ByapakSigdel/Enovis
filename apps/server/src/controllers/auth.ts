@@ -121,3 +121,53 @@ export async function getMe(req: AuthRequest, res: Response): Promise<void> {
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 }
+
+export async function updateMode(req: AuthRequest, res: Response): Promise<void> {
+  try {
+    const userId = req.user!.userId;
+    const { mode } = req.body;
+
+    if (!mode || (mode !== "individual" && mode !== "enterprise")) {
+      res.status(400).json({ success: false, error: "Invalid mode. Must be 'individual' or 'enterprise'" });
+      return;
+    }
+
+    const now = new Date();
+    await db.execute(
+      "UPDATE users SET mode = ?, updated_at = ? WHERE id = ?",
+      [mode, now, userId]
+    );
+
+    // Generate new token with updated mode
+    const result = await db.execute("SELECT * FROM users WHERE id = ?", [userId]);
+    if (result.rowLength === 0) {
+      res.status(404).json({ success: false, error: "User not found" });
+      return;
+    }
+
+    const user = result.rows[0];
+    const token = signToken({
+      userId: user.id.toString(),
+      email: user.email,
+      mode: mode,
+    });
+
+    res.json({
+      success: true,
+      data: {
+        token,
+        user: {
+          id: user.id.toString(),
+          email: user.email,
+          name: user.name,
+          avatar: user.avatar,
+          mode: mode,
+          created_at: user.created_at,
+        },
+      },
+    });
+  } catch (err) {
+    console.error("[Auth] UpdateMode error:", err);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+}

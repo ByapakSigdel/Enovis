@@ -178,7 +178,7 @@ export default function GoalsPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-primary-400">
-              PRMS Wellness
+              Enovis
             </p>
             <h1 className="mt-1 text-2xl font-bold text-neutral-800">
               My Goals

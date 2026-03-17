@@ -1,11 +1,11 @@
-# PrMS - Productivity Management System
+# Enovis - Productivity Management System
 
 A comprehensive monorepo for the Productivity Management System with web, server, and future mobile applications.
 
 ## 📁 Monorepo Structure
 
 ```
-PrMS/
+Enovis/
 ├── apps/
 │   ├── web/              # Next.js web application
 │   ├── server/           # Express.js backend API
@@ -32,7 +32,7 @@ PrMS/
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd PrMS
+cd Enovis
 ```
 
 2. Install dependencies for all workspaces:
@@ -125,5 +125,3 @@ npm run clean
 ## 📝 License
 
 Private - All rights reserved
-# Enovis
-# Enovis
