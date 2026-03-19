@@ -1,21 +1,23 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Frown, Meh, Smile, SmilePlus, Laugh } from "lucide-react";
+import type { ReactNode } from "react";
 
 type Mood = "stressed" | "okay" | "good" | "calm" | "great";
 
 interface MoodOption {
   value: Mood;
-  emoji: string;
+  icon: ReactNode;
   label: string;
 }
 
 const moods: MoodOption[] = [
-  { value: "stressed", emoji: "😣", label: "Stressed" },
-  { value: "okay", emoji: "😐", label: "Okay" },
-  { value: "good", emoji: "🙂", label: "Good" },
-  { value: "calm", emoji: "😌", label: "Calm" },
-  { value: "great", emoji: "😄", label: "Great" },
+  { value: "stressed", icon: <Frown className="w-6 h-6" />, label: "Stressed" },
+  { value: "okay", icon: <Meh className="w-6 h-6" />, label: "Okay" },
+  { value: "good", icon: <Smile className="w-6 h-6" />, label: "Good" },
+  { value: "calm", icon: <SmilePlus className="w-6 h-6" />, label: "Calm" },
+  { value: "great", icon: <Laugh className="w-6 h-6" />, label: "Great" },
 ];
 
 interface MoodSelectorProps {
@@ -41,13 +43,11 @@ export default function MoodSelector({
             className={cn(
               "flex flex-col items-center gap-1 rounded-xl px-3 py-2 transition-all",
               isSelected
-                ? "scale-110 bg-primary-50 ring-2 ring-primary-500"
-                : "hover:bg-sage-50"
+                ? "scale-110 bg-primary-50 ring-2 ring-primary-500 text-primary-600"
+                : "text-neutral-400 hover:bg-sage-50 hover:text-neutral-600"
             )}
           >
-            <span className="text-2xl" role="img" aria-label={mood.label}>
-              {mood.emoji}
-            </span>
+            {mood.icon}
             <span
               className={cn(
                 "text-xs font-medium",

@@ -9,6 +9,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { cn, formatCurrency } from "@/lib/utils";
+import { Handshake, Shuffle, User } from "lucide-react";
 
 type Tab = "contacts" | "deals" | "pipelines";
 
@@ -264,7 +265,7 @@ export default function CrmPage() {
             ) : filteredContacts.length === 0 ? (
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-6 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">👤</div>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><User className="w-8 h-8 text-primary-500" /></div>
                   <div>
                     <p className="text-sm font-semibold text-neutral-700">
                       {contactSearch ? "No contacts match your search." : "Build your contact book"}
@@ -374,7 +375,7 @@ export default function CrmPage() {
             ) : deals.length === 0 ? (
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-6 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🤝</div>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Handshake className="w-8 h-8 text-primary-500" /></div>
                   <div>
                     <p className="text-sm font-semibold text-neutral-700">No deals in the pipeline</p>
                     <p className="mt-1 text-xs text-neutral-400">Track opportunities from first contact to closed deal. See probability, value, and expected close dates at a glance.</p>
@@ -448,7 +449,7 @@ export default function CrmPage() {
             ) : pipelines.length === 0 ? (
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-6 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🔀</div>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Shuffle className="w-8 h-8 text-primary-500" /></div>
                   <div>
                     <p className="text-sm font-semibold text-neutral-700">No pipelines yet</p>
                     <p className="mt-1 text-xs text-neutral-400">Create a sales pipeline with custom stages to visualize and manage your deal flow from lead to close.</p>

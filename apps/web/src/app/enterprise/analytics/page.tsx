@@ -9,6 +9,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { cn, formatCurrency } from "@/lib/utils";
+import { Banknote, BarChart, TrendingUp, Users } from "lucide-react";
 
 type Tab = "dashboard" | "projects" | "sales" | "finance" | "team";
 
@@ -335,7 +336,7 @@ export default function AnalyticsPage() {
                         ) : (
                           <Card>
                             <div className="flex flex-col items-center gap-3 py-10 text-center">
-                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📊</div>
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><BarChart className="w-8 h-8 text-primary-500" /></div>
                               <p className="text-sm font-semibold text-neutral-700">No project analytics yet</p>
                               <p className="text-xs text-neutral-400">Create projects and log work to see delivery metrics, on-time rates, and team velocity.</p>
                             </div>
@@ -376,7 +377,7 @@ export default function AnalyticsPage() {
                         ) : (
                           <Card>
                             <div className="flex flex-col items-center gap-3 py-10 text-center">
-                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">💰</div>
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Banknote className="w-8 h-8 text-primary-500" /></div>
                               <p className="text-sm font-semibold text-neutral-700">No sales analytics yet</p>
                               <p className="text-xs text-neutral-400">Add deals and close orders to see revenue trends, win rates, and pipeline health.</p>
                             </div>
@@ -417,7 +418,7 @@ export default function AnalyticsPage() {
                         ) : (
                           <Card>
                             <div className="flex flex-col items-center gap-3 py-10 text-center">
-                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📈</div>
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><TrendingUp className="w-8 h-8 text-primary-500" /></div>
                               <p className="text-sm font-semibold text-neutral-700">No finance analytics yet</p>
                               <p className="text-xs text-neutral-400">Record accounts and journal entries to see P&amp;L summaries, cash flow, and expense breakdowns.</p>
                             </div>
@@ -454,7 +455,7 @@ export default function AnalyticsPage() {
                         ) : (
                           <Card>
                             <div className="flex flex-col items-center gap-3 py-10 text-center">
-                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">👥</div>
+                              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Users className="w-8 h-8 text-primary-500" /></div>
                               <p className="text-sm font-semibold text-neutral-700">No team analytics yet</p>
                               <p className="text-xs text-neutral-400">Clock in team hours and assign tasks to track productivity, utilization, and performance trends.</p>
                             </div>

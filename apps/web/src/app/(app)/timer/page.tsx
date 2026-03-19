@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { Laptop, BookOpen, Target, CheckCircle2, Timer } from "lucide-react";
 import { api } from "@/lib/api";
 import type { FocusSession } from "@/types";
 import Card from "@/components/ui/Card";
@@ -656,7 +657,7 @@ export default function TimerPage() {
           <Card variant="elevated" className="overflow-hidden">
             <div className="flex flex-col items-center gap-4 py-4 text-center">
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                ⏱️
+                <Timer className="w-10 h-10 text-primary-400" />
               </div>
               <div>
                 <p className="text-base font-semibold text-neutral-800">
@@ -669,13 +670,13 @@ export default function TimerPage() {
               {/* Mock session rows */}
               <div className="w-full space-y-2">
                 {[
-                  { emoji: "💻", label: "Deep Work", duration: "25 min", time: "9:00 AM" },
-                  { emoji: "📖", label: "Reading", duration: "50 min", time: "11:00 AM" },
-                  { emoji: "🎯", label: "Planning", duration: "15 min", time: "2:00 PM" },
+                  { icon: <Laptop className="w-5 h-5" />, label: "Deep Work", duration: "25 min", time: "9:00 AM" },
+                  { icon: <BookOpen className="w-5 h-5" />, label: "Reading", duration: "50 min", time: "11:00 AM" },
+                  { icon: <Target className="w-5 h-5" />, label: "Planning", duration: "15 min", time: "2:00 PM" },
                 ].map((s, i) => (
                   <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-base shadow-sm">
-                      {s.emoji}
+                      {s.icon}
                     </span>
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-neutral-800">{s.label}</p>
@@ -734,7 +735,7 @@ export default function TimerPage() {
                             : "bg-sage-100"
                         )}
                       >
-                        {s.status === "completed" ? "✅" : "⏱️"}
+                        {s.status === "completed" ? <CheckCircle2 className="w-5 h-5 text-green-500" /> : <Timer className="w-5 h-5 text-neutral-400" />}
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-medium text-neutral-800">

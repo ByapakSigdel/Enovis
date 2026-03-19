@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { Calendar } from "lucide-react";
 import { api } from "@/lib/api";
 import type { CalendarEvent } from "@/types";
 import Card from "@/components/ui/Card";
@@ -332,7 +333,7 @@ export default function CalendarPage() {
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-4 text-center">
                   <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                    📅
+                    <Calendar className="w-10 h-10 text-primary-400" />
                   </div>
                   <div>
                     <p className="text-base font-semibold text-neutral-800">

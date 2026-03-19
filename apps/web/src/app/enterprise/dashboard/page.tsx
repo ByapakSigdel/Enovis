@@ -11,6 +11,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Avatar from "@/components/ui/Avatar";
+import { Folder, ShoppingCart } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -394,7 +395,7 @@ export default function EnterpriseDashboardPage() {
             ) : recentProjects.length === 0 ? (
               <div className="px-5 py-6 text-center">
                 <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
-                  🗂️
+                  <Folder className="w-8 h-8 text-primary-500" />
                 </div>
                 <p className="text-sm font-semibold text-neutral-700">No projects yet</p>
                 <p className="mt-1 text-xs text-neutral-400">Kick off your first project to start tracking progress and deliverables.</p>
@@ -466,7 +467,7 @@ export default function EnterpriseDashboardPage() {
             ) : recentOrders.length === 0 ? (
               <div className="px-5 py-6 text-center">
                 <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
-                  🛒
+                  <ShoppingCart className="w-8 h-8 text-primary-500" />
                 </div>
                 <p className="text-sm font-semibold text-neutral-700">No orders yet</p>
                 <p className="mt-1 text-xs text-neutral-400">Process your first order to see fulfillment status and revenue flow here.</p>

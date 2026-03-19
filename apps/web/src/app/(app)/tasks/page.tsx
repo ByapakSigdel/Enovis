@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { ClipboardList, Circle, Calendar, CheckCircle2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useAuth } from "@/hooks/useAuth";
 import type { Task } from "@/types";
@@ -383,7 +384,7 @@ export default function TasksPage() {
                   {/* Hero section */}
                   <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
                     <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                      📋
+                      <ClipboardList className="w-10 h-10 text-primary-400" />
                     </div>
                     <h3 className="text-xl font-bold text-neutral-800">
                       {search ? "No matching tasks" : activeFilter === "completed" ? "Nothing completed yet" : "Your task list is clear"}
@@ -405,12 +406,12 @@ export default function TasksPage() {
                       </p>
                       <div className="flex flex-col gap-2">
                         {[
-                          { emoji: "🔴", label: "Urgent tasks", desc: "Flag critical items that need immediate attention" },
-                          { emoji: "📅", label: "Due dates", desc: "Set deadlines and see tasks filtered by Today / Upcoming" },
-                          { emoji: "✅", label: "Progress history", desc: "Every completed task is saved so you can look back" },
+                          { icon: <Circle className="w-5 h-5 text-red-500 fill-red-500" />, label: "Urgent tasks", desc: "Flag critical items that need immediate attention" },
+                          { icon: <Calendar className="w-5 h-5 text-primary-500" />, label: "Due dates", desc: "Set deadlines and see tasks filtered by Today / Upcoming" },
+                          { icon: <CheckCircle2 className="w-5 h-5 text-green-500" />, label: "Progress history", desc: "Every completed task is saved so you can look back" },
                         ].map((item) => (
                           <div key={item.label} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3">
-                            <span className="text-lg">{item.emoji}</span>
+                            <span className="text-lg">{item.icon}</span>
                             <div>
                               <p className="text-sm font-semibold text-neutral-800">{item.label}</p>
                               <p className="text-xs text-neutral-500">{item.desc}</p>

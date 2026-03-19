@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { Smile, Moon, Activity, Droplet, Scale, Zap, BarChart3, Leaf, Footprints, Sprout } from "lucide-react";
 import { api } from "@/lib/api";
 import type { HealthMetric } from "@/types";
 import Card from "@/components/ui/Card";
@@ -15,23 +16,23 @@ import Button from "@/components/ui/Button";
 const metricTypes: {
   value: string;
   label: string;
-  emoji: string;
+  emoji: React.ReactNode;
   unit: string;
   bg: string;
 }[] = [
-  { value: "mood", label: "Mood", emoji: "😊", unit: "1-10", bg: "bg-amber-100" },
-  { value: "sleep", label: "Sleep", emoji: "🌙", unit: "hours", bg: "bg-indigo-100" },
-  { value: "steps", label: "Steps", emoji: "🏃", unit: "steps", bg: "bg-green-100" },
-  { value: "water", label: "Water", emoji: "💧", unit: "glasses", bg: "bg-blue-100" },
-  { value: "weight", label: "Weight", emoji: "⚖️", unit: "kg", bg: "bg-purple-100" },
-  { value: "energy", label: "Energy", emoji: "⚡", unit: "1-10", bg: "bg-orange-100" },
+  { value: "mood", label: "Mood", emoji: <Smile className="w-5 h-5" />, unit: "1-10", bg: "bg-amber-100" },
+  { value: "sleep", label: "Sleep", emoji: <Moon className="w-5 h-5" />, unit: "hours", bg: "bg-indigo-100" },
+  { value: "steps", label: "Steps", emoji: <Activity className="w-5 h-5" />, unit: "steps", bg: "bg-green-100" },
+  { value: "water", label: "Water", emoji: <Droplet className="w-5 h-5" />, unit: "glasses", bg: "bg-blue-100" },
+  { value: "weight", label: "Weight", emoji: <Scale className="w-5 h-5" />, unit: "kg", bg: "bg-purple-100" },
+  { value: "energy", label: "Energy", emoji: <Zap className="w-5 h-5" />, unit: "1-10", bg: "bg-orange-100" },
 ];
 
 function getMetricConfig(type: string) {
   return metricTypes.find((m) => m.value === type) ?? {
     value: type,
     label: type,
-    emoji: "📊",
+    emoji: <BarChart3 className="w-5 h-5" />,
     unit: "",
     bg: "bg-sage-100",
   };
@@ -267,7 +268,7 @@ export default function HealthPage() {
             {metrics.length === 0 ? (
               <div className="flex h-40 items-center justify-center rounded-xl bg-sage-50">
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <span className="text-3xl opacity-40">📊</span>
+                  <BarChart3 className="w-10 h-10 opacity-40" />
                   <p className="text-xs font-medium text-neutral-400">Log metrics to see your weekly trend</p>
                 </div>
               </div>
@@ -330,7 +331,7 @@ export default function HealthPage() {
             </h3>
             {todayMetrics.length === 0 ? (
               <div className="flex flex-col items-center py-6 text-center">
-                <span className="text-3xl">🌿</span>
+                <Leaf className="w-8 h-8 text-green-200" />
                 <p className="mt-3 text-sm text-white/70">
                   No metrics logged today yet.
                 </p>
@@ -376,7 +377,7 @@ export default function HealthPage() {
           <Card variant="elevated" className="overflow-hidden">
             <div className="flex flex-col items-center gap-4 py-4 text-center">
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                🌱
+                <Sprout className="w-10 h-10 text-green-500" />
               </div>
               <div>
                 <p className="text-base font-semibold text-neutral-800">
@@ -389,10 +390,10 @@ export default function HealthPage() {
               {/* Mock metric cards */}
               <div className="grid w-full grid-cols-2 gap-2">
                 {[
-                  { emoji: "⚖️", label: "Weight", value: "72.4 kg", trend: "↓ 0.6 kg" },
-                  { emoji: "😴", label: "Sleep", value: "7.5 hrs", trend: "↑ 30 min" },
-                  { emoji: "💧", label: "Water", value: "2.1 L", trend: "On track" },
-                  { emoji: "👣", label: "Steps", value: "8,432", trend: "↑ 1,200" },
+                  { emoji: <Scale className="w-5 h-5" />, label: "Weight", value: "72.4 kg", trend: "↓ 0.6 kg" },
+                  { emoji: <Moon className="w-4 h-4" />, label: "Sleep", value: "7.5 hrs", trend: "↑ 30 min" },
+                  { emoji: <Droplet className="w-5 h-5" />, label: "Water", value: "2.1 L", trend: "On track" },
+                  { emoji: <Footprints className="w-4 h-4" />, label: "Steps", value: "8,432", trend: "↑ 1,200" },
                 ].map((m, i) => (
                   <div key={i} className="flex flex-col gap-1 rounded-xl bg-sage-50 p-3 text-left opacity-75">
                     <div className="flex items-center gap-1.5">

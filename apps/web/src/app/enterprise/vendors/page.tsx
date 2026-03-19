@@ -9,6 +9,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { cn, formatCurrency } from "@/lib/utils";
+import { ClipboardList, Factory } from "lucide-react";
 
 type Tab = "vendors" | "purchase-orders";
 
@@ -236,7 +237,7 @@ export default function VendorsPage() {
             ) : filteredVendors.length === 0 ? (
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-6 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🏭</div>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Factory className="w-8 h-8 text-primary-500" /></div>
                   <div>
                     <p className="text-sm font-semibold text-neutral-700">
                       {vendorSearch ? "No vendors match your search." : "Build your vendor network"}
@@ -347,7 +348,7 @@ export default function VendorsPage() {
             ) : purchaseOrders.length === 0 ? (
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-6 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📋</div>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><ClipboardList className="w-8 h-8 text-primary-500" /></div>
                   <div>
                     <p className="text-sm font-semibold text-neutral-700">No purchase orders yet</p>
                     <p className="mt-1 text-xs text-neutral-400">Issue POs to vendors, track delivery status, and maintain a complete procurement audit trail.</p>

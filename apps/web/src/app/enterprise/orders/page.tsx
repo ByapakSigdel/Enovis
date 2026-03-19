@@ -9,6 +9,7 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { ShoppingCart } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -461,7 +462,7 @@ export default function OrdersPage() {
         ) : filteredOrders.length === 0 ? (
           <Card variant="elevated" className="overflow-hidden py-6 text-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🛒</div>
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><ShoppingCart className="w-8 h-8 text-primary-500" /></div>
               <div>
                 <p className="text-base font-semibold text-neutral-700">
                   {search || statusFilter !== "all"

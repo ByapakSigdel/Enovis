@@ -9,6 +9,7 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { Book, Landmark } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -341,7 +342,7 @@ export default function FinancePage() {
               </div>
             ) : accounts.length === 0 ? (
               <div className="flex flex-col items-center gap-4 py-12 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🏦</div>
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Landmark className="w-8 h-8 text-primary-500" /></div>
                 <div>
                   <p className="text-base font-semibold text-neutral-700">Set up your chart of accounts</p>
                   <p className="mt-1 text-sm text-neutral-500">
@@ -500,7 +501,7 @@ export default function FinancePage() {
               </div>
             ) : entries.length === 0 ? (
               <div className="flex flex-col items-center gap-4 py-12 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">📒</div>
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Book className="w-8 h-8 text-primary-500" /></div>
                 <div>
                   <p className="text-base font-semibold text-neutral-700">No journal entries yet</p>
                   <p className="mt-1 text-sm text-neutral-500">

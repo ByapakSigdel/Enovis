@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { Flame, Book, Smile, Meh, Star, Frown, SmilePlus, Laugh, PenSquare, Heart } from "lucide-react";
 import { api } from "@/lib/api";
 import type { JournalEntry } from "@/types";
 import Card from "@/components/ui/Card";
@@ -30,12 +31,12 @@ const numberToMood = (n: number): Mood | null => {
   return "great";
 };
 
-const moodEmoji: Record<Mood, string> = {
-  stressed: "😣",
-  okay: "😐",
-  good: "🙂",
-  calm: "😌",
-  great: "😄",
+const moodEmoji: Record<Mood, React.ReactNode> = {
+  stressed: <Frown className="w-5 h-5" />,
+  okay: <Meh className="w-5 h-5" />,
+  good: <Smile className="w-5 h-5" />,
+  calm: <SmilePlus className="w-5 h-5" />,
+  great: <Laugh className="w-5 h-5" />,
 };
 
 /* ------------------------------------------------------------------ */
@@ -260,7 +261,7 @@ export default function JournalPage() {
           {/* Streak badge */}
           {streak > 0 && (
             <Badge variant="default" className="gap-1">
-              🔥 {streak} day streak
+              <Flame className="w-4 h-4 text-orange-500" /> {streak} day streak
             </Badge>
           )}
         </div>
@@ -363,7 +364,7 @@ export default function JournalPage() {
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-4 text-center">
                   <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                    📔
+                    <Book className="w-10 h-10 text-primary-400" />
                   </div>
                   <div>
                     <p className="text-base font-semibold text-neutral-800">
@@ -376,13 +377,13 @@ export default function JournalPage() {
                   {/* Mock entry cards */}
                   <div className="w-full space-y-2">
                     {[
-                      { emoji: "😊", mood: "Great", date: "Yesterday", preview: "Had an amazing productive day. Finished the project ahead of schedule and felt incredibly…" },
-                      { emoji: "😐", mood: "Okay", date: "2 days ago", preview: "Feeling a bit overwhelmed but taking it one step at a time. Grateful for small wins…" },
-                      { emoji: "🌟", mood: "Excellent", date: "3 days ago", preview: "Morning run was incredible. The fresh air cleared my head and I feel ready to tackle…" },
+                      { icon: <Smile className="w-4 h-4" />, mood: "Great", date: "Yesterday", preview: "Had an amazing productive day. Finished the project ahead of schedule and felt incredibly…" },
+                      { icon: <Meh className="w-4 h-4" />, mood: "Okay", date: "2 days ago", preview: "Feeling a bit overwhelmed but taking it one step at a time. Grateful for small wins…" },
+                      { icon: <Star className="w-4 h-4 text-yellow-500" />, mood: "Excellent", date: "3 days ago", preview: "Morning run was incredible. The fresh air cleared my head and I feel ready to tackle…" },
                     ].map((e, i) => (
                       <div key={i} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
                         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-base shadow-sm">
-                          {e.emoji}
+                          {e.icon}
                         </span>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between">
@@ -435,7 +436,7 @@ export default function JournalPage() {
                         <div className="mb-2 flex items-center gap-3">
                           {/* Mood emoji */}
                           <span className="text-2xl">
-                            {mood ? moodEmoji[mood] : "📝"}
+                            {mood ? moodEmoji[mood] : <PenSquare className="w-5 h-5" />}
                           </span>
                           <div className="flex-1">
                             <p className="text-sm font-semibold text-neutral-800">
@@ -471,7 +472,7 @@ export default function JournalPage() {
                                 key={i}
                                 className="rounded-full bg-primary-50 px-2.5 py-0.5 text-xs text-primary-600"
                               >
-                                🙏 {g}
+                                <Heart className="w-3 h-3 text-red-400" /> {g}
                               </span>
                             ))}
                           </div>

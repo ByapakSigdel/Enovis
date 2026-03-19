@@ -10,6 +10,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Avatar from "@/components/ui/Avatar";
+import { MessageSquare, Star, User } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -297,7 +298,7 @@ export default function ChannelsPage() {
           ) : filteredChannels.length === 0 ? (
             <div className="px-2 py-10 text-center">
               <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
-                💬
+                <MessageSquare className="w-8 h-8 text-primary-500" />
               </div>
               <p className="text-sm font-semibold text-neutral-700">
                 {channelSearch ? "No matching channels" : "No channels yet"}
@@ -374,7 +375,7 @@ export default function ChannelsPage() {
           /* ---- No channel selected ----------------------------------- */
           <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center px-6">
             <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-              💬
+              <MessageSquare className="w-8 h-8 text-primary-500" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-neutral-700">
@@ -387,9 +388,9 @@ export default function ChannelsPage() {
             {/* Mock message previews */}
             <div className="w-full max-w-sm space-y-2 text-left">
               {[
-                { avatar: "🧑", name: "Alex Chen", msg: "Just pushed the latest design updates to staging", time: "2m ago" },
-                { avatar: "👩", name: "Sarah Kim", msg: "Great work everyone! The Q3 report is ready for review", time: "15m ago" },
-                { avatar: "🧔", name: "James Lee", msg: "Standup in 10 minutes — don't forget!", time: "1h ago" },
+                { avatar: <User className="w-4 h-4 text-primary-500" />, name: "Alex Chen", msg: "Just pushed the latest design updates to staging", time: "2m ago" },
+                { avatar: <User className="w-4 h-4 text-primary-500" />, name: "Sarah Kim", msg: "Great work everyone! The Q3 report is ready for review", time: "15m ago" },
+                { avatar: <User className="w-4 h-4 text-primary-500" />, name: "James Lee", msg: "Standup in 10 minutes — don't forget!", time: "1h ago" },
               ].map((m, i) => (
                 <div key={i} className="flex items-start gap-3 rounded-xl bg-sage-50 p-3 opacity-60">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-base shadow-sm">{m.avatar}</span>
@@ -454,7 +455,7 @@ export default function ChannelsPage() {
               ) : messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">
-                    🌟
+                    <Star className="w-8 h-8 text-primary-500" />
                   </div>
                   <p className="font-semibold text-neutral-700">No messages yet</p>
                   <p className="text-sm text-neutral-400">

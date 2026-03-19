@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { PenSquare } from "lucide-react";
 import { api } from "@/lib/api";
 import type { Note } from "@/types";
 import Card from "@/components/ui/Card";
@@ -278,7 +279,7 @@ export default function NotesPage() {
             {/* Hero */}
             <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
               <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                📝
+                <PenSquare className="w-10 h-10 text-primary-400" />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">
                 {search ? "No matching notes" : "Capture Your Thoughts"}

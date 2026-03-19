@@ -10,6 +10,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { Receipt } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -634,7 +635,7 @@ export default function InvoicesPage() {
         ) : filteredInvoices.length === 0 ? (
           <Card variant="elevated" className="overflow-hidden py-6 text-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm">🧾</div>
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-3xl shadow-sm"><Receipt className="w-8 h-8 text-primary-500" /></div>
               <div>
                 <p className="text-base font-semibold text-neutral-700">
                   {search || statusFilter !== "all"

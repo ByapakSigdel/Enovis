@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { Flame, Sprout, Target, Activity, Droplet, BookOpen, HeartPulse } from "lucide-react";
 import { api } from "@/lib/api";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
@@ -378,7 +379,7 @@ export default function HabitsPage() {
           <Card variant="elevated">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 text-lg">
-                🔥
+                <Flame className="w-8 h-8 text-orange-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-neutral-800">
@@ -406,7 +407,7 @@ export default function HabitsPage() {
             {/* Hero */}
             <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
               <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                🌱
+                <Sprout className="w-8 h-8 text-green-500" />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">
                 Build Lasting Habits
@@ -423,10 +424,10 @@ export default function HabitsPage() {
               </p>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { icon: "🧘", label: "Meditation", bg: "bg-purple-100" },
-                  { icon: "💧", label: "Drink Water", bg: "bg-blue-100" },
-                  { icon: "📖", label: "Daily Reading", bg: "bg-amber-100" },
-                  { icon: "🏃", label: "Exercise", bg: "bg-green-100" },
+                  { icon: <HeartPulse className="w-5 h-5" />, label: "Meditation", bg: "bg-purple-100" },
+                  { icon: <Droplet className="w-5 h-5" />, label: "Drink Water", bg: "bg-blue-100" },
+                  { icon: <BookOpen className="w-5 h-5" />, label: "Daily Reading", bg: "bg-amber-100" },
+                  { icon: <Activity className="w-5 h-5" />, label: "Exercise", bg: "bg-green-100" },
                 ].map((h) => (
                   <div key={h.label} className="flex items-center gap-2.5 rounded-xl bg-sage-50 px-3 py-2.5">
                     <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-base", h.bg)}>
@@ -453,7 +454,7 @@ export default function HabitsPage() {
 
             {/* Streak teaser */}
             <div className="mx-6 mb-5 flex items-center gap-3 rounded-xl bg-amber-50 px-4 py-3">
-              <span className="text-2xl">🔥</span>
+              <Flame className="w-6 h-6 text-orange-500" />
               <div>
                 <p className="text-sm font-semibold text-amber-800">Build your streak</p>
                 <p className="text-xs text-amber-600">Check in daily and watch your streak counter climb</p>

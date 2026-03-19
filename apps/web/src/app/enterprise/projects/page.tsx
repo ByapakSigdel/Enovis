@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { cn, formatCurrency } from "@/lib/utils";
+import { Folder } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Helper: format an ISO date string                                  */
@@ -432,7 +433,7 @@ export default function ProjectsPage() {
         <Card variant="elevated" className="overflow-hidden">
           <div className="flex flex-col items-center gap-4 py-8 text-center">
             <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-              🗂️
+              <Folder className="w-8 h-8 text-primary-500" />
             </div>
             <div>
               <p className="text-lg font-semibold text-neutral-700">No projects yet</p>

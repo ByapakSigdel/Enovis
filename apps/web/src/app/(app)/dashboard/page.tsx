@@ -11,6 +11,7 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
 import MoodSelector, { type Mood } from "@/components/ui/MoodSelector";
+import { Frown, Meh, Smile, SmilePlus, Laugh, Flame, Activity, BookOpen, Droplet, Target, ClipboardList } from "lucide-react";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -54,6 +55,15 @@ export default function DashboardPage() {
   const incompleteTasks = tasks.filter((t) => !t.completed).slice(0, 5);
   const topHabits = habits.slice(0, 2);
 
+  const renderMoodIcon = (mood: Mood | null) => {
+    if (mood === "great") return <Laugh className="w-6 h-6 mx-auto text-primary-500" />;
+    if (mood === "good") return <Smile className="w-6 h-6 mx-auto text-primary-500" />;
+    if (mood === "okay") return <Meh className="w-6 h-6 mx-auto text-primary-500" />;
+    if (mood === "calm") return <SmilePlus className="w-6 h-6 mx-auto text-primary-500" />;
+    if (mood === "stressed") return <Frown className="w-6 h-6 mx-auto text-primary-500" />;
+    return <Smile className="w-6 h-6 mx-auto text-primary-500" />;
+  };
+
   return (
     <div className="min-h-screen p-6 lg:p-8">
       {/* Two-column grid for web */}
@@ -94,8 +104,8 @@ export default function DashboardPage() {
             ) : topHabits.length === 0 ? (
               <Card variant="elevated" className="overflow-hidden">
                 <div className="flex flex-col items-center gap-4 py-4 text-center">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                    🔥
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 shadow-sm">
+                    <Flame className="w-10 h-10 text-orange-500" />
                   </div>
                   <div>
                     <p className="text-base font-semibold text-neutral-800">
@@ -108,12 +118,12 @@ export default function DashboardPage() {
                   {/* Mock habit previews */}
                   <div className="w-full space-y-2">
                     {[
-                      { icon: "🏃", label: "Morning Run", streak: 12, color: "bg-primary-500" },
-                      { icon: "📚", label: "Read 20 mins", streak: 7, color: "bg-blue-400" },
-                      { icon: "💧", label: "Drink Water", streak: 21, color: "bg-cyan-400" },
+                      { icon: <Activity className="w-5 h-5 text-primary-500" />, label: "Morning Run", streak: 12, color: "bg-primary-500" },
+                      { icon: <BookOpen className="w-5 h-5 text-blue-400" />, label: "Read 20 mins", streak: 7, color: "bg-blue-400" },
+                      { icon: <Droplet className="w-5 h-5 text-cyan-400" />, label: "Drink Water", streak: 21, color: "bg-cyan-400" },
                     ].map((h, i) => (
                       <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-lg shadow-sm">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm">
                           {h.icon}
                         </span>
                         <div className="flex-1">
@@ -124,7 +134,7 @@ export default function DashboardPage() {
                             ))}
                           </div>
                         </div>
-                        <span className="text-xs font-bold text-primary-600">{h.streak} 🔥</span>
+                        <span className="text-xs font-bold text-primary-600 flex items-center gap-1">{h.streak} <Flame className="w-3 h-3 text-orange-500" /></span>
                       </div>
                     ))}
                   </div>
@@ -146,7 +156,9 @@ export default function DashboardPage() {
                     <Card key={habit.id} variant="elevated">
                       <div className="mb-3 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="text-2xl">{habit.icon || "🎯"}</span>
+                          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-sage-50 text-primary-600">
+                            {habit.icon && typeof habit.icon === "string" && habit.icon.match(/[\p{Emoji}]/u) ? <Target className="w-5 h-5" /> : habit.icon || <Target className="w-5 h-5" />}
+                          </span>
                           <div>
                             <p className="font-semibold text-neutral-800">
                               {habit.name}
@@ -156,8 +168,8 @@ export default function DashboardPage() {
                             </p>
                           </div>
                         </div>
-                        <Badge>
-                          🔥 {habit.currentStreak} days
+                        <Badge className="flex items-center gap-1">
+                          <Flame className="w-3 h-3 text-orange-500" /> {habit.currentStreak} days
                         </Badge>
                       </div>
                       <ProgressBar value={streakPercent} color={habit.color || "#4a7c59"} />
@@ -246,30 +258,28 @@ export default function DashboardPage() {
             </h2>
             <div className="grid grid-cols-2 gap-3">
               <Card variant="outlined" className="text-center">
-                <span className="text-2xl">📋</span>
+                <ClipboardList className="w-6 h-6 mx-auto text-primary-500" />
                 <p className="mt-1 text-lg font-bold text-neutral-800">
                   {tasks.filter((t) => t.completed).length}
                 </p>
                 <p className="text-xs text-neutral-500">/ {tasks.length} tasks</p>
               </Card>
               <Card variant="outlined" className="text-center">
-                <span className="text-2xl">🎯</span>
+                <Target className="w-6 h-6 mx-auto text-primary-500" />
                 <p className="mt-1 text-lg font-bold text-neutral-800">
                   {habits.length}
                 </p>
                 <p className="text-xs text-neutral-500">habits tracked</p>
               </Card>
               <Card variant="outlined" className="text-center">
-                <span className="text-2xl">🔥</span>
+                <Flame className="w-6 h-6 mx-auto text-orange-500" />
                 <p className="mt-1 text-lg font-bold text-neutral-800">
                   {habits.length > 0 ? Math.max(...habits.map((h) => h.currentStreak)) : 0}
                 </p>
                 <p className="text-xs text-neutral-500">best streak</p>
               </Card>
               <Card variant="outlined" className="text-center">
-                <span className="text-2xl">
-                  {selectedMood === "great" ? "😄" : selectedMood === "good" ? "🙂" : selectedMood === "okay" ? "😐" : selectedMood === "calm" ? "😌" : selectedMood === "stressed" ? "😣" : "🙂"}
-                </span>
+                {renderMoodIcon(selectedMood)}
                 <p className="mt-1 text-lg font-bold text-neutral-800">
                   {selectedMood ? selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1) : "—"}
                 </p>

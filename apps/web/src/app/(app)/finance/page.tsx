@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn, formatCurrency } from "@/lib/utils";
+import { ShoppingCart, HeartPulse, Car, Utensils, Clapperboard, Pill, ShoppingBag, Lightbulb, Home, Coins, Laptop, RefreshCw, Banknote, Briefcase, CreditCard, Coffee } from "lucide-react";
 import { api } from "@/lib/api";
 import type { Transaction, Budget } from "@/types";
 import Card from "@/components/ui/Card";
@@ -13,26 +14,26 @@ import Button from "@/components/ui/Button";
 /*  Category emoji lookup                                              */
 /* ------------------------------------------------------------------ */
 
-const categoryEmoji: Record<string, string> = {
-  groceries: "🛒",
-  wellness: "🧘",
-  transport: "🚗",
-  food: "🍔",
-  entertainment: "🎬",
-  health: "💊",
-  shopping: "🛍️",
-  utilities: "💡",
-  rent: "🏠",
-  salary: "💰",
-  freelance: "💻",
-  income: "💰",
-  transfer: "🔄",
+const categoryEmoji: Record<string, React.ReactNode> = {
+  groceries: <ShoppingCart className="w-5 h-5" />,
+  wellness: <HeartPulse className="w-5 h-5" />,
+  transport: <Car className="w-5 h-5" />,
+  food: <Utensils className="w-5 h-5" />,
+  entertainment: <Clapperboard className="w-5 h-5" />,
+  health: <Pill className="w-5 h-5" />,
+  shopping: <ShoppingBag className="w-5 h-5" />,
+  utilities: <Lightbulb className="w-5 h-5" />,
+  rent: <Home className="w-5 h-5" />,
+  salary: <Coins className="w-5 h-5" />,
+  freelance: <Laptop className="w-5 h-5" />,
+  income: <Coins className="w-5 h-5" />,
+  transfer: <RefreshCw className="w-5 h-5" />,
 };
 
-function emojiFor(category: string, type?: string): string {
-  if (type === "income") return "💰";
-  if (type === "transfer") return "🔄";
-  return categoryEmoji[category.toLowerCase()] ?? "💸";
+function emojiFor(category: string, type?: string): React.ReactNode {
+  if (type === "income") return <Coins className="w-5 h-5" />;
+  if (type === "transfer") return <RefreshCw className="w-5 h-5" />;
+  return categoryEmoji[category.toLowerCase()] ?? <Banknote className="w-5 h-5" />;
 }
 
 /* ------------------------------------------------------------------ */
@@ -475,7 +476,7 @@ export default function FinancePage() {
                 <Card className="overflow-hidden">
                   <div className="flex flex-col items-center px-4 py-6 text-center">
                     <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-2xl">
-                      💼
+                      <Briefcase className="w-10 h-10 text-primary-400" />
                     </div>
                     <p className="font-semibold text-neutral-700">No budgets yet</p>
                     <p className="mt-1 text-xs leading-relaxed text-neutral-400">
@@ -483,12 +484,12 @@ export default function FinancePage() {
                     </p>
                     <div className="mt-3 flex flex-col gap-1.5 w-full">
                       {[
-                        { emoji: "🛒", label: "Groceries", pct: 70 },
-                        { emoji: "🍔", label: "Food", pct: 45 },
-                        { emoji: "🎬", label: "Entertainment", pct: 20 },
+                        { icon: <ShoppingCart className="w-4 h-4" />, label: "Groceries", pct: 70 },
+                        { icon: <Utensils className="w-4 h-4" />, label: "Food", pct: 45 },
+                        { icon: <Clapperboard className="w-4 h-4" />, label: "Entertainment", pct: 20 },
                       ].map((b) => (
                         <div key={b.label} className="flex items-center gap-2 rounded-lg bg-sage-50 px-3 py-2 opacity-60">
-                          <span className="text-base">{b.emoji}</span>
+                          <span className="text-base">{b.icon}</span>
                           <span className="flex-1 text-xs font-medium text-neutral-700">{b.label}</span>
                           <div className="w-16 h-1.5 rounded-full bg-sage-200">
                             <div className="h-1.5 rounded-full bg-primary-400" style={{ width: `${b.pct}%` }} />
@@ -559,7 +560,7 @@ export default function FinancePage() {
                 <Card variant="elevated" className="overflow-hidden">
                   <div className="flex flex-col items-center gap-4 py-4 text-center">
                     <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                      💳
+                      <CreditCard className="w-10 h-10 text-primary-400" />
                     </div>
                     <div>
                       <p className="text-base font-semibold text-neutral-800">
@@ -573,10 +574,10 @@ export default function FinancePage() {
                     <div className="w-full rounded-xl bg-sage-50 p-3">
                       <div className="flex flex-col divide-y divide-sage-100">
                         {[
-                          { icon: "🛒", label: "Grocery Store", cat: "Food", amount: "–$64.20", color: "text-red-500" },
-                          { icon: "💼", label: "Freelance Payment", cat: "Income", amount: "+$1,200.00", color: "text-primary-600" },
-                          { icon: "☕", label: "Coffee Shop", cat: "Food", amount: "–$5.50", color: "text-red-500" },
-                          { icon: "🏠", label: "Rent", cat: "Housing", amount: "–$1,500.00", color: "text-red-500" },
+                          { icon: <ShoppingCart className="w-4 h-4" />, label: "Grocery Store", cat: "Food", amount: "–$64.20", color: "text-red-500" },
+                          { icon: <Briefcase className="w-4 h-4" />, label: "Freelance Payment", cat: "Income", amount: "+$1,200.00", color: "text-primary-600" },
+                          { icon: <Coffee className="w-4 h-4" />, label: "Coffee Shop", cat: "Food", amount: "–$5.50", color: "text-red-500" },
+                          { icon: <Home className="w-4 h-4" />, label: "Rent", cat: "Housing", amount: "–$1,500.00", color: "text-red-500" },
                         ].map((tx, i) => (
                           <div key={i} className="flex items-center gap-3 py-2 first:pt-0 last:pb-0 opacity-75">
                             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-base shadow-sm">

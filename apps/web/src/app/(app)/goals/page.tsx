@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { HeartPulse, Activity, BookOpen, Coins, Briefcase, Sprout, Target, Trophy } from "lucide-react";
 import { api } from "@/lib/api";
 import type { Goal, Milestone } from "@/types";
 import { useAuth } from "@/hooks/useAuth";
@@ -21,14 +22,14 @@ const tabs: { value: FilterTab; label: string }[] = [
   { value: "paused", label: "Paused" },
 ];
 
-const categoryIcons: Record<string, { icon: string; bg: string }> = {
-  health: { icon: "🧘", bg: "bg-purple-100" },
-  fitness: { icon: "🏃", bg: "bg-orange-100" },
-  education: { icon: "📚", bg: "bg-amber-100" },
-  finance: { icon: "💰", bg: "bg-emerald-100" },
-  career: { icon: "💼", bg: "bg-blue-100" },
-  personal: { icon: "🌱", bg: "bg-green-100" },
-  default: { icon: "🎯", bg: "bg-sage-100" },
+const categoryIcons: Record<string, { icon: React.ReactNode; bg: string }> = {
+  health: { icon: <HeartPulse className="w-5 h-5" />, bg: "bg-purple-100" },
+  fitness: { icon: <Activity className="w-5 h-5" />, bg: "bg-orange-100" },
+  education: { icon: <BookOpen className="w-5 h-5" />, bg: "bg-amber-100" },
+  finance: { icon: <Coins className="w-5 h-5" />, bg: "bg-emerald-100" },
+  career: { icon: <Briefcase className="w-5 h-5" />, bg: "bg-blue-100" },
+  personal: { icon: <Sprout className="w-5 h-5" />, bg: "bg-green-100" },
+  default: { icon: <Target className="w-5 h-5" />, bg: "bg-sage-100" },
 };
 
 function getCategoryStyle(category?: string | null) {
@@ -277,7 +278,7 @@ export default function GoalsPage() {
             {/* Hero */}
             <div className="flex flex-col items-center px-6 pt-8 pb-6 text-center">
               <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-                🎯
+                <Target className="w-10 h-10 text-primary-400" />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">
                 {activeTab === "active"
@@ -303,12 +304,12 @@ export default function GoalsPage() {
                 </p>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { icon: "🏃", label: "Fitness", bg: "bg-orange-100", progress: 65 },
-                    { icon: "📚", label: "Education", bg: "bg-amber-100", progress: 30 },
-                    { icon: "💰", label: "Finance", bg: "bg-emerald-100", progress: 80 },
-                    { icon: "🧘", label: "Health", bg: "bg-purple-100", progress: 50 },
-                    { icon: "💼", label: "Career", bg: "bg-blue-100", progress: 20 },
-                    { icon: "🌱", label: "Personal", bg: "bg-green-100", progress: 45 },
+                    { icon: <Activity className="w-5 h-5" />, label: "Fitness", bg: "bg-orange-100", progress: 65 },
+                    { icon: <BookOpen className="w-5 h-5" />, label: "Education", bg: "bg-amber-100", progress: 30 },
+                    { icon: <Coins className="w-5 h-5" />, label: "Finance", bg: "bg-emerald-100", progress: 80 },
+                    { icon: <HeartPulse className="w-5 h-5" />, label: "Health", bg: "bg-purple-100", progress: 50 },
+                    { icon: <Briefcase className="w-5 h-5" />, label: "Career", bg: "bg-blue-100", progress: 20 },
+                    { icon: <Sprout className="w-5 h-5" />, label: "Personal", bg: "bg-green-100", progress: 45 },
                   ].map((cat) => (
                     <div key={cat.label} className="flex flex-col items-center gap-1.5 rounded-xl bg-sage-50 p-2.5">
                       <span className={cn("flex h-8 w-8 items-center justify-center rounded-lg text-base", cat.bg)}>
@@ -330,7 +331,7 @@ export default function GoalsPage() {
             {/* Milestone teaser */}
             {activeTab === "active" && (
               <div className="mx-6 mb-5 flex items-center gap-3 rounded-xl bg-primary-50 px-4 py-3">
-                <span className="text-2xl">🏆</span>
+                <span className="text-2xl"><Trophy className="w-6 h-6 text-primary-500" /></span>
                 <div>
                   <p className="text-sm font-semibold text-primary-800">Break it into milestones</p>
                   <p className="text-xs text-primary-600">Add checkpoints to celebrate small wins along the way</p>

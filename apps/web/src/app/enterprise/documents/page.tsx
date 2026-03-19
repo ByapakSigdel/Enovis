@@ -9,6 +9,7 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { BarChart, FileEdit, FileText, Folder } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -344,7 +345,7 @@ export default function DocumentsPage() {
           /* ---- Empty state ------------------------------------------ */
           <div className="flex flex-col items-center gap-4 py-16 text-center">
             <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50 text-4xl shadow-sm">
-              📁
+              <Folder className="w-8 h-8 text-primary-500" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-neutral-700">
@@ -359,9 +360,9 @@ export default function DocumentsPage() {
             {!currentFolder && (
               <div className="w-full max-w-sm space-y-2">
                 {[
-                  { icon: "📄", name: "Q3 Financial Report.pdf", size: "2.4 MB", date: "Today" },
-                  { icon: "📝", name: "Product Roadmap.docx", size: "540 KB", date: "Yesterday" },
-                  { icon: "📊", name: "Sales Deck.pptx", size: "8.1 MB", date: "3 days ago" },
+                  { icon: <FileText className="w-5 h-5 text-primary-500" />, name: "Q3 Financial Report.pdf", size: "2.4 MB", date: "Today" },
+                  { icon: <FileEdit className="w-5 h-5 text-primary-500" />, name: "Product Roadmap.docx", size: "540 KB", date: "Yesterday" },
+                  { icon: <BarChart className="w-5 h-5 text-primary-500" />, name: "Sales Deck.pptx", size: "8.1 MB", date: "3 days ago" },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-3 rounded-xl bg-sage-50 p-3 text-left opacity-75">
                     <span className="text-2xl">{f.icon}</span>
