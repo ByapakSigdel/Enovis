@@ -29,6 +29,204 @@ const presets = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Custom Timer Modal                                                */
+/* ------------------------------------------------------------------ */
+
+function CustomTimerModal({ 
+  isOpen, 
+  onClose, 
+  initialMinutes, 
+  onSave 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  initialMinutes: number; 
+  onSave: (m: number) => void;
+}) {
+  const [minutes, setMinutes] = useState(initialMinutes || 25);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isAnimatingIn, setIsAnimatingIn] = useState(true);
+
+  useEffect(() => {
+    if (isOpen) {
+      setMinutes(initialMinutes || 25);
+      setIsAnimatingIn(true);
+      const timer = setTimeout(() => setIsAnimatingIn(false), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, initialMinutes]);
+
+  const calculateMinutesFromEvent = useCallback((clientX: number, clientY: number) => {
+    if (!svgRef.current) return;
+    const rect = svgRef.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = clientX - cx;
+    const dy = clientY - cy;
+    
+    // Calculate angle in degrees (0 at top, clockwise)
+    let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+    if (angle < 0) angle += 360;
+    
+    // Map 360 degrees to 60 minutes
+    let newMinutes = Math.round((angle / 360) * 60);
+    if (newMinutes === 0) newMinutes = 60; // 0 is 60 (top)
+
+    // Handle wrapping for > 60 mins
+    setMinutes((prev) => {
+      const currentRevolutions = Math.floor((prev - 0.1) / 60);
+      let calculated = currentRevolutions * 60 + newMinutes;
+      
+      // Basic heuristic to handle wrapping
+      const diff = calculated - prev;
+      if (diff > 30) calculated -= 60;
+      else if (diff < -30) calculated += 60;
+
+      return Math.max(1, Math.min(120, calculated));
+    });
+  }, []);
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    setIsDragging(true);
+    calculateMinutesFromEvent(e.clientX, e.clientY);
+    (e.target as Element).setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging) return;
+    calculateMinutesFromEvent(e.clientX, e.clientY);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    setIsDragging(false);
+    (e.target as Element).releasePointerCapture(e.pointerId);
+  };
+
+  if (!isOpen) return null;
+
+  // Visuals for the clock hand
+  const WHEEL_SIZE = 220;
+  const CENTER = WHEEL_SIZE / 2;
+  const HAND_LENGTH = CENTER - 30;
+  
+  // Every minute is 6 degrees. 
+  const targetRotation = minutes * 6;
+  const rotationDegrees = isAnimatingIn ? 0 : targetRotation;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-3xl shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-8 flex flex-col items-center">
+          <div className="w-full flex justify-between items-center mb-6">
+            <h3 className="text-xl font-bold text-neutral-800">Custom Timer</h3>
+            <button onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div className="w-full py-4 flex flex-col items-center">
+            {/* Clock Wheel */}
+            <div className="relative mb-6 touch-none">
+              <svg 
+                ref={svgRef}
+                width={WHEEL_SIZE} 
+                height={WHEEL_SIZE} 
+                className="cursor-pointer"
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerUp}
+              >
+                {/* Dial background */}
+                <circle cx={CENTER} cy={CENTER} r={CENTER - 10} fill="#f4f7f4" stroke="#e0e8e0" strokeWidth="4" />
+                
+                {/* Minute markers */}
+                {Array.from({ length: 60 }).map((_, i) => {
+                  const angle = (i * 6 - 90) * (Math.PI / 180);
+                  const isHour = i % 5 === 0;
+                  const r1 = isHour ? CENTER - 22 : CENTER - 16;
+                  const r2 = CENTER - 10;
+                  return (
+                    <line 
+                      key={i}
+                      x1={CENTER + r1 * Math.cos(angle)}
+                      y1={CENTER + r1 * Math.sin(angle)}
+                      x2={CENTER + r2 * Math.cos(angle)}
+                      y2={CENTER + r2 * Math.sin(angle)}
+                      stroke={isHour ? "#a3b8a3" : "#d1ded1"}
+                      strokeWidth={isHour ? 2 : 1}
+                    />
+                  );
+                })}
+
+                {/* Clock Hand */}
+                <g 
+                  style={{
+                    transform: `rotate(${rotationDegrees}deg)`,
+                    transformOrigin: `${CENTER}px ${CENTER}px`,
+                    transition: (isDragging || isAnimatingIn) ? 'none' : 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                  }}
+                >
+                  {/* Hand line */}
+                  <line 
+                    x1={CENTER} 
+                    y1={CENTER} 
+                    x2={CENTER} 
+                    y2={CENTER - HAND_LENGTH} 
+                    stroke="var(--color-primary-500)" 
+                    strokeWidth="4" 
+                    strokeLinecap="round" 
+                  />
+                  {/* Center dot */}
+                  <circle cx={CENTER} cy={CENTER} r="6" fill="var(--color-primary-500)" />
+                </g>
+              </svg>
+            </div>
+
+            {/* Time Display */}
+            <div className="mb-8 flex items-baseline gap-1.5">
+              <span className="text-5xl font-bold text-neutral-800 tracking-tight">{minutes}</span>
+              <span className="text-lg font-semibold text-neutral-400">min</span>
+            </div>
+
+            {/* Quick presets */}
+            <div className="w-full mt-2">
+              <div className="flex gap-2 w-full justify-center">
+                {[15, 25, 45, 60, 90].map(preset => (
+                  <button
+                    key={preset}
+                    onClick={() => setMinutes(preset)}
+                    className={`flex-1 py-2 rounded-xl text-sm font-semibold transition-all ${minutes === preset ? 'bg-primary-500 text-white shadow-md shadow-primary-500/20' : 'bg-neutral-50 text-neutral-500 hover:bg-sage-50 hover:text-neutral-700'}`}
+                  >
+                    {preset}m
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Button 
+            variant="primary" 
+            size="lg" 
+            className="w-full rounded-2xl py-6 text-base font-semibold mt-6 shadow-lg shadow-primary-500/20"
+            onClick={() => {
+              onSave(minutes);
+              onClose();
+            }}
+          >
+            Set Timer
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Page component                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -337,7 +535,7 @@ export default function TimerPage() {
           </Card>
         )}
 
-        {/* Setup Panel (idle state) */}
+        {/* Setup Panel */}
         {status === "idle" && (
           <Card variant="elevated" className="mb-6">
             <h3 className="mb-4 text-sm font-semibold text-neutral-800">
@@ -566,6 +764,13 @@ export default function TimerPage() {
             </div>
           </>
         )}
+
+        <CustomTimerModal 
+          isOpen={showSetup} 
+          onClose={() => setShowSetup(false)} 
+          initialMinutes={durationMinutes} 
+          onSave={(m) => setDurationMinutes(m)} 
+        />
       </div>
     </div>
   );
