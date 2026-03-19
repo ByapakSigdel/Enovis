@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { Flame, Book, Smile, Meh, Star, Frown, SmilePlus, Laugh, PenSquare, Heart } from "lucide-react";
@@ -15,28 +16,28 @@ import Button from "@/components/ui/Button";
 /*  Mood mapping: numeric ↔ Mood string                                */
 /* ------------------------------------------------------------------ */
 
-const moodToNumber: Record<Mood, number> = {
-  stressed: 1,
-  okay: 3,
-  good: 5,
-  calm: 7,
-  great: 9,
+const moodToNumber: Record<string, number> = {
+  stressed: 1, sad: 2, tired: 3, okay: 4, focused: 5, calm: 6, happy: 7, excited: 8
 };
-
-const numberToMood = (n: number): Mood | null => {
-  if (n <= 2) return "stressed";
+function numberToMood(n: number): Mood {
+  if (n <= 1) return "stressed";
+  if (n <= 2) return "sad";
+  if (n <= 3) return "tired";
   if (n <= 4) return "okay";
-  if (n <= 6) return "good";
-  if (n <= 8) return "calm";
-  return "great";
-};
-
-const moodEmoji: Record<Mood, React.ReactNode> = {
-  stressed: <Frown className="w-5 h-5" />,
-  okay: <Meh className="w-5 h-5" />,
-  good: <Smile className="w-5 h-5" />,
-  calm: <SmilePlus className="w-5 h-5" />,
-  great: <Laugh className="w-5 h-5" />,
+  if (n <= 5) return "focused";
+  if (n <= 6) return "calm";
+  if (n <= 7) return "happy";
+  return "excited";
+}
+const moodEmoji: Record<string, React.ReactNode> = {
+  stressed: <Image src="/assets/moods/stressed.svg" width={24} height={24} alt="Stressed" />,
+  sad: <Image src="/assets/moods/sad.svg" width={24} height={24} alt="Sad" />,
+  tired: <Image src="/assets/moods/tired.svg" width={24} height={24} alt="Tired" />,
+  okay: <Image src="/assets/moods/okay.svg" width={24} height={24} alt="Okay" />,
+  focused: <Image src="/assets/moods/focused.svg" width={24} height={24} alt="Focused" />,
+  calm: <Image src="/assets/moods/calm.svg" width={24} height={24} alt="Calm" />,
+  happy: <Image src="/assets/moods/happy.svg" width={24} height={24} alt="Happy" />,
+  excited: <Image src="/assets/moods/excited.svg" width={24} height={24} alt="Excited" />,
 };
 
 /* ------------------------------------------------------------------ */
@@ -65,10 +66,6 @@ function getDailyPrompt(): string {
 function todayString(): string {
   return new Date().toISOString().slice(0, 10);
 }
-
-/* ------------------------------------------------------------------ */
-/*  Page component                                                     */
-/* ------------------------------------------------------------------ */
 
 export default function JournalPage() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);

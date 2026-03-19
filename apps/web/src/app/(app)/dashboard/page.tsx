@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn, getGreeting, formatDate } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
@@ -56,12 +57,8 @@ export default function DashboardPage() {
   const topHabits = habits.slice(0, 2);
 
   const renderMoodIcon = (mood: Mood | null) => {
-    if (mood === "great") return <Laugh className="w-6 h-6 mx-auto text-primary-500" />;
-    if (mood === "good") return <Smile className="w-6 h-6 mx-auto text-primary-500" />;
-    if (mood === "okay") return <Meh className="w-6 h-6 mx-auto text-primary-500" />;
-    if (mood === "calm") return <SmilePlus className="w-6 h-6 mx-auto text-primary-500" />;
-    if (mood === "stressed") return <Frown className="w-6 h-6 mx-auto text-primary-500" />;
-    return <Smile className="w-6 h-6 mx-auto text-primary-500" />;
+    if (!mood) return <Image src="/assets/moods/okay.svg" width={40} height={40} alt="None" className="mx-auto drop-shadow-sm opacity-50" />;
+    return <Image src={`/assets/moods/${mood}.svg`} width={40} height={40} alt={mood} className="mx-auto drop-shadow-sm" />;
   };
 
   return (
