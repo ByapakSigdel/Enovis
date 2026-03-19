@@ -1,26 +1,20 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import type { ReactNode } from "react";
+import { useState } from "react";
+import { MoodIcon } from "./MoodIcons";
 
 type Mood = "stressed" | "sad" | "tired" | "okay" | "focused" | "calm" | "happy" | "excited";
 
-interface MoodOption {
-  value: Mood;
-  icon: ReactNode;
-  label: string;
-}
-
-const moods: MoodOption[] = [
-  { value: "stressed", icon: <Image src="/assets/moods/stressed.svg" width={52} height={52} alt="Stressed" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Stressed" },
-  { value: "sad", icon: <Image src="/assets/moods/sad.svg" width={52} height={52} alt="Sad" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Sad" },
-  { value: "tired", icon: <Image src="/assets/moods/tired.svg" width={52} height={52} alt="Tired" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Tired" },
-  { value: "okay", icon: <Image src="/assets/moods/okay.svg" width={52} height={52} alt="Okay" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Okay" },
-  { value: "focused", icon: <Image src="/assets/moods/focused.svg" width={52} height={52} alt="Focused" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Focused" },
-  { value: "calm", icon: <Image src="/assets/moods/calm.svg" width={52} height={52} alt="Calm" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Calm" },
-  { value: "happy", icon: <Image src="/assets/moods/happy.svg" width={52} height={52} alt="Happy" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Happy" },
-  { value: "excited", icon: <Image src="/assets/moods/excited.svg" width={52} height={52} alt="Excited" className="drop-shadow-sm transition-transform group-hover:scale-110" />, label: "Excited" },
+const MOODS: { value: Mood; label: string }[] = [
+  { value: "stressed", label: "Stressed" },
+  { value: "sad", label: "Sad" },
+  { value: "tired", label: "Tired" },
+  { value: "okay", label: "Okay" },
+  { value: "focused", label: "Focused" },
+  { value: "calm", label: "Calm" },
+  { value: "happy", label: "Happy" },
+  { value: "excited", label: "Excited" },
 ];
 
 interface MoodSelectorProps {
@@ -34,15 +28,21 @@ export default function MoodSelector({
   onChange,
   className,
 }: MoodSelectorProps) {
+  const [hoveredMood, setHoveredMood] = useState<Mood | null>(null);
+
   return (
     <div className={cn("flex items-center justify-center gap-1 sm:gap-4 flex-wrap", className)}>
-      {moods.map((mood) => {
+      {MOODS.map((mood) => {
         const isSelected = value === mood.value;
+        const isHovered = hoveredMood === mood.value;
+        
         return (
           <button
             key={mood.value}
             type="button"
             onClick={() => onChange(mood.value)}
+            onMouseEnter={() => setHoveredMood(mood.value)}
+            onMouseLeave={() => setHoveredMood(null)}
             className={cn(
               "group flex flex-col items-center gap-1 rounded-xl px-3 py-2 transition-all",
               isSelected
@@ -50,7 +50,14 @@ export default function MoodSelector({
                 : "text-neutral-400 hover:scale-105 hover:text-neutral-600"
             )}
           >
-            {mood.icon}
+            <MoodIcon 
+              mood={mood.value} 
+              isHovered={isHovered}
+              className={cn(
+                "w-[52px] h-[52px] drop-shadow-sm transition-transform", 
+                (isHovered || isSelected) && "scale-110"
+              )} 
+            />
             <span
               className={cn(
                 "text-xs font-medium",

@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { Flame, Book, Smile, Meh, Star, Frown, SmilePlus, Laugh, PenSquare, Heart } from "lucide-react";
+import { Flame, Book, Smile, Meh, Star, PenSquare, Heart } from "lucide-react";
 import { api } from "@/lib/api";
 import type { JournalEntry } from "@/types";
 import Card from "@/components/ui/Card";
 import MoodSelector from "@/components/ui/MoodSelector";
 import type { Mood } from "@/components/ui/MoodSelector";
+import { MoodIcon } from "@/components/ui/MoodIcons";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 
@@ -30,14 +30,14 @@ function numberToMood(n: number): Mood {
   return "excited";
 }
 const moodEmoji: Record<string, React.ReactNode> = {
-  stressed: <Image src="/assets/moods/stressed.svg" width={24} height={24} alt="Stressed" />,
-  sad: <Image src="/assets/moods/sad.svg" width={24} height={24} alt="Sad" />,
-  tired: <Image src="/assets/moods/tired.svg" width={24} height={24} alt="Tired" />,
-  okay: <Image src="/assets/moods/okay.svg" width={24} height={24} alt="Okay" />,
-  focused: <Image src="/assets/moods/focused.svg" width={24} height={24} alt="Focused" />,
-  calm: <Image src="/assets/moods/calm.svg" width={24} height={24} alt="Calm" />,
-  happy: <Image src="/assets/moods/happy.svg" width={24} height={24} alt="Happy" />,
-  excited: <Image src="/assets/moods/excited.svg" width={24} height={24} alt="Excited" />,
+  stressed: <MoodIcon mood="stressed" className="w-8 h-8" />,
+  sad: <MoodIcon mood="sad" className="w-8 h-8" />,
+  tired: <MoodIcon mood="tired" className="w-8 h-8" />,
+  okay: <MoodIcon mood="okay" className="w-8 h-8" />,
+  focused: <MoodIcon mood="focused" className="w-8 h-8" />,
+  calm: <MoodIcon mood="calm" className="w-8 h-8" />,
+  happy: <MoodIcon mood="happy" className="w-8 h-8" />,
+  excited: <MoodIcon mood="excited" className="w-8 h-8" />,
 };
 
 /* ------------------------------------------------------------------ */

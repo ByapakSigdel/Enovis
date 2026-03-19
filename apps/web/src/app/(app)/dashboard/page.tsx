@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { cn, getGreeting, formatDate } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
@@ -12,7 +11,8 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
 import MoodSelector, { type Mood } from "@/components/ui/MoodSelector";
-import { Frown, Meh, Smile, SmilePlus, Laugh, Flame, Activity, BookOpen, Droplet, Target, ClipboardList } from "lucide-react";
+import { MoodIcon } from "@/components/ui/MoodIcons";
+import { Flame, Activity, BookOpen, Droplet, Target, ClipboardList } from "lucide-react";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -57,8 +57,8 @@ export default function DashboardPage() {
   const topHabits = habits.slice(0, 2);
 
   const renderMoodIcon = (mood: Mood | null) => {
-    if (!mood) return <Image src="/assets/moods/okay.svg" width={40} height={40} alt="None" className="mx-auto drop-shadow-sm opacity-50" />;
-    return <Image src={`/assets/moods/${mood}.svg`} width={40} height={40} alt={mood} className="mx-auto drop-shadow-sm" />;
+    if (!mood) return <MoodIcon mood="okay" className="w-10 h-10 mx-auto drop-shadow-sm opacity-50" />;
+    return <MoodIcon mood={mood} className="w-10 h-10 mx-auto drop-shadow-sm" />;
   };
 
   return (
